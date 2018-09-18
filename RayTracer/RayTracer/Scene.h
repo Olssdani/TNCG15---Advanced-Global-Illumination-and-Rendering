@@ -7,7 +7,7 @@ class Scene
 public:
 	Scene();
 	~Scene();
-
+	void print();
 private:
 	Vertex vertex[14];
 	Triangle Room[24];
@@ -15,5 +15,6 @@ private:
 	void initVertex();
 	void initTriangle();
 
+	
 };
 

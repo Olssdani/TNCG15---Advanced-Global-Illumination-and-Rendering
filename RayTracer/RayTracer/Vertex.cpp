@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Vertex.h"
 
+
 Vertex::Vertex()
 {
 	x = 0;
@@ -17,11 +18,6 @@ Vertex::Vertex(double _x, double _y, double _z, double _w)
 	w = _w;
 }
 
-
-Vertex::~Vertex()
-{
-}
-
 Vertex Vertex::operator=(Vertex v)
 {
 	x = v.x;
@@ -30,4 +26,10 @@ Vertex Vertex::operator=(Vertex v)
 	w = v.w;
 
 	return *this;
+}
+
+std::ostream& operator<<(std::ostream& os, const Vertex& v)
+{
+	os << "x: " << v.x << " y: " << v.y << " z: " << v.z;
+	return os;
 }

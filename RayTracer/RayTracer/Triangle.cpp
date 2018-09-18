@@ -16,7 +16,7 @@ Triangle::Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color)
 	p2 = _p2;
 	p3 = _p3;
 	Color = _Color;
-	normal = normalCalc;
+	normal = normalCalc();
 }
 
 
@@ -36,7 +36,13 @@ Direction Triangle::normalCalc()
 
 	//cross product
 	Direction c = Direction(a.y * b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);
-
+	c.normalize();
 	return c;
 	
+}
+
+std::ostream& operator<<(std::ostream& os, const Triangle& t)
+{
+	os << "p1: " << t.p1 << std::endl << "p2: " << t.p2 << std::endl << "p3: " << t.p3 << std::endl << "Normal: " << t.normal << std::endl;
+	return os;
 }

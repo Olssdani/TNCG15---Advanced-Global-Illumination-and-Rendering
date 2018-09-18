@@ -12,7 +12,15 @@ Scene::Scene()
 Scene::~Scene()
 {
 }
+void Scene::print()
+{
+	for (int i = 0; i < 24; ++i) 
+	{
+		std::cout << Room[i];
+	}
+	
 
+}
 void Scene::initVertex()
 {
 	//Uppe

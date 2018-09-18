@@ -15,6 +15,8 @@ public:
 	void rayIntersection(Ray r);
 	Direction normalCalc();
 
+	friend std::ostream& operator<<(std::ostream& os, const Triangle& t);
+	//variable
 	Vertex p1;
 	Vertex p2;
 	Vertex p3;
