@@ -1,5 +1,2 @@
-﻿  stdafx.cpp
-  Display.cpp
-  RayTracer.cpp
-  Generating Code...
+﻿  Vertex.cpp
   RayTracer.vcxproj -> C:\Users\Erik\Documents\Skola\TNCG15 Advanced global illumination and rendering\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
