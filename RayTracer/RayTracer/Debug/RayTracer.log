@@ -1,8 +1,2 @@
-﻿  Triangle.cpp
-  Direction.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Scene.cpp
-  RayTracer.cpp
-  Ray.cpp
+﻿  RayTracer.cpp
   RayTracer.vcxproj -> C:\Users\nille\Documents\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
