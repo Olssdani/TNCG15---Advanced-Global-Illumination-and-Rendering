@@ -50,7 +50,7 @@ bool Triangle::rayIntersection(Ray r)
 	Direction Q = Direction(T.y * E1.z - T.z*E1.y, T.z*E1.x - T.x*E1.z, T.x*E1.y - T.y*E1.x);
 
 	v = D.Scalar(Q) * f;
-	if (v < 0.0 || v > 1.0)
+	if (v < 0.0 || v > 1.0 || v+u>1)
 		return false;
 
 	double t = Q.Scalar(E2) * f;

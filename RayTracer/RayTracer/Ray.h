@@ -7,8 +7,8 @@ class Triangle;
 class Ray
 {
 public:
+	Ray();
 	Ray(Vertex _Start, Vertex _End);
-	
 	Vertex Start;
 	Vertex End;
 	ColorDbl Color;
