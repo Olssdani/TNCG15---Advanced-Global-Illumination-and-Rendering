@@ -3,11 +3,11 @@
 #include "Triangle.h"
 
 
-Ray::Ray(Vertex _Start, Vertex _End, ColorDbl _Color, Triangle *_triangle )
+Ray::Ray(Vertex _Start, Vertex _End )
 {
 	Start = _Start;
 	End = _End;
-	Color = _Color;
-	triangle = _triangle;
+	Color = ColorDbl();
+	triangle = nullptr;
 }
 

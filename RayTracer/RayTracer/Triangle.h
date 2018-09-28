@@ -12,7 +12,7 @@ public:
 	Triangle();
 	Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color);
 	~Triangle();
-	void rayIntersection(Ray r);
+	bool rayIntersection(Ray r);
 	Direction normalCalc();
 
 	friend std::ostream& operator<<(std::ostream& os, const Triangle& t);

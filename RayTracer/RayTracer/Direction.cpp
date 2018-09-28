@@ -17,6 +17,27 @@ Direction::Direction(double _x, double _y, double _z)
 	z = _z;
 }
 
+Direction::Direction(Vertex p)
+{
+	x = p.x;
+	y = p.y;
+	z = p.z;
+}
+
+Direction Direction::operator-(Direction a)
+{
+	Direction ans;
+	ans.x = x - a.x;
+	ans.y = y - a.y;
+	ans.z = z - a.z;
+	return ans;
+}
+
+double Direction::Scalar(Direction a)
+{
+	return x * a.x + y * a.y + z * a.z;
+}
+
 
 Direction::~Direction()
 {

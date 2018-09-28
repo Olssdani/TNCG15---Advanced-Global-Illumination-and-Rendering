@@ -1,2 +1,8 @@
-﻿  RayTracer.cpp
-  RayTracer.vcxproj -> C:\Users\nille\Documents\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
+﻿  Camera.cpp
+c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(102): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(103): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(104): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+  Scene.cpp
+  Triangle.cpp
+  Generating Code...
+  RayTracer.vcxproj -> C:\Users\Erik\Documents\Skola\TNCG15 Advanced global illumination and rendering\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
