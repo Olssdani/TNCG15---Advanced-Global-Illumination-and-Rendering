@@ -2,6 +2,13 @@
 #include "Ray.h"
 #include "Triangle.h"
 
+Ray::Ray()
+{
+	Start = Vertex();
+	End = Vertex();
+	Color = ColorDbl();
+	triangle = nullptr;
+}
 
 Ray::Ray(Vertex _Start, Vertex _End )
 {

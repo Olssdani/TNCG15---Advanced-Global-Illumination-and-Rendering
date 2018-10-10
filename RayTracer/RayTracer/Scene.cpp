@@ -6,12 +6,14 @@ Scene::Scene()
 {
 	initVertex();
 	initTriangle();
+	initTetra();
 }
 
 
 Scene::~Scene()
 {
 }
+
 void Scene::print()
 {
 	for (int i = 0; i < 24; ++i) 
@@ -76,4 +78,9 @@ void Scene::initTriangle()
 	Room[21] = Triangle(vertex[1], vertex[9], vertex[2], ColorDbl(0.0, 1.0, 0.0));
 	Room[22] = Triangle(vertex[2], vertex[9], vertex[10], ColorDbl(0.0, 0.0, 1.0));
 	Room[23] = Triangle(vertex[2], vertex[10], vertex[3], ColorDbl(0.0, 0.0, 1.0));
+}
+
+void Scene::initTetra()
+{
+	tetra[0] = Tetrahedron();
 }

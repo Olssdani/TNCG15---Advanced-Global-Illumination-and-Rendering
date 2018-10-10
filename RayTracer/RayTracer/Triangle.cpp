@@ -28,7 +28,7 @@ Triangle::~Triangle()
 
 bool Triangle::rayIntersection(Ray r)
 {
-	const double EPSILON = 0.0000001;
+	const double EPSILON = 0.000000000001;
 	double a, f, u, v;
 	//Möller trumbore algorithm
 	Direction T = Direction(r.Start) - Direction(p1);
@@ -50,7 +50,11 @@ bool Triangle::rayIntersection(Ray r)
 	Direction Q = Direction(T.y * E1.z - T.z*E1.y, T.z*E1.x - T.x*E1.z, T.x*E1.y - T.y*E1.x);
 
 	v = D.Scalar(Q) * f;
-	if (v < 0.0 || v > 1.0)
+<<<<<<< HEAD
+	if (v < 0.0 || v > 1.0 || u + v > 1)
+=======
+	if (v < 0.0 || v > 1.0 || v+u>1)
+>>>>>>> cc52106fa25b9bcf344bdc166306fb61d27b2a94
 		return false;
 
 	double t = Q.Scalar(E2) * f;

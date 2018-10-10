@@ -1,2 +1,6 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.16299.0
+<<<<<<< HEAD
 Debug|Win32|C:\Users\Daniel olsson\Desktop\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\|
+=======
+Debug|Win32|C:\Users\nille\Documents\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\|
+>>>>>>> 59bb0696ccb2543f4b61fea6451d7a2601adbd95
