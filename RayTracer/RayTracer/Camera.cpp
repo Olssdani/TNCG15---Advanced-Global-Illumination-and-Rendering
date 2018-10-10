@@ -53,12 +53,21 @@ void Camera::render(Scene &scene)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			Ray temp(Eyes[1], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(i * 0.0025 - 0.99875), 0));
+			Ray temp(Eyes[1], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
 			for (int k = 0; k < 24; k++)
 			{
 				if (scene.Room[k].rayIntersection(temp))
 					PixelArray[i][j].UpdateColor(scene.Room[k].Color);
-
+				
+			}
+			for (int l = 0; l < 4; l++)
+			{
+				//std::cout << scene.tetra[0].triangle[l] << std::endl;
+				if (scene.tetra[0].triangle[l].rayIntersection(temp))
+				{
+					PixelArray[i][j].UpdateColor(scene.tetra[0].triangle[l].Color);
+					//std::cout << "halloo" << std::endl;
+				}
 			}
 		}
 	}
