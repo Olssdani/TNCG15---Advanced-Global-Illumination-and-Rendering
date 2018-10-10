@@ -28,6 +28,11 @@ Vertex Vertex::operator=(Vertex v)
 	return *this;
 }
 
+Direction Vertex::operator-(Vertex s) 
+{
+	return Direction(this->x - s.x, this->z - s.z, this->z - s.z);
+}
+
 std::ostream& operator<<(std::ostream& os, const Vertex& v)
 {
 	os << "x: " << v.x << " y: " << v.y << " z: " << v.z;
