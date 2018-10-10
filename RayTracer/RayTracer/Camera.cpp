@@ -51,46 +51,35 @@ void Camera::render(Scene &scene)
 	{
 		for (int j = 0; j < width; j++)
 		{
-<<<<<<< HEAD
-			Ray temp(Eyes[1], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
-=======
 			//Initate the ray from eye through a pixel(i,j)
-			temp = Ray(Eyes[1], Vertex(0.0, -j * 0.0025 + 0.99875, i * 0.0025 - 0.99875, 0));
->>>>>>> cc52106fa25b9bcf344bdc166306fb61d27b2a94
+			temp = Ray(Eyes[1], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
 			for (int k = 0; k < 24; k++)
 			{
 				if (scene.Room[k].rayIntersection(temp))
 				{
-					//Update color for pixel
-					PixelArray[i][j].UpdateColor(scene.Room[k].Color);
-<<<<<<< HEAD
-				
+					PixelArray[i][j].UpdateColor(scene.Room[k].Color);	
+				}
+			
+				//Update the max colorvalue
+				if (rmax < scene.Room[k].Color.r)
+				{
+					rmax = scene.Room[k].Color.r;
+				}
+				if (gmax < scene.Room[k].Color.g)
+				{
+					gmax = scene.Room[k].Color.g;
+				}
+				if (bmax < scene.Room[k].Color.b)
+				{
+					bmax = scene.Room[k].Color.b;
+				}
 			}
 			for (int l = 0; l < 4; l++)
 			{
-				//std::cout << scene.tetra[0].triangle[l] << std::endl;
 				if (scene.tetra[0].triangle[l].rayIntersection(temp))
 				{
 					PixelArray[i][j].UpdateColor(scene.tetra[0].triangle[l].Color);
-					//std::cout << "halloo" << std::endl;
 				}
-=======
-					
-					//Update the max colorvalue
-					if (rmax < scene.Room[k].Color.r)
-					{
-						rmax = scene.Room[k].Color.r;
-					}
-					if (gmax < scene.Room[k].Color.g)
-					{
-						gmax = scene.Room[k].Color.g;
-					}
-					if (bmax < scene.Room[k].Color.b)
-					{
-						bmax = scene.Room[k].Color.b;
-					}
-				}		
->>>>>>> cc52106fa25b9bcf344bdc166306fb61d27b2a94
 			}
 		}
 	}
@@ -100,7 +89,7 @@ void Camera::render(Scene &scene)
 void Camera::createImage()
 {
 	Display picture(height, width);
-
+	std::cout << "Pixels";
 	//Make doubles to RGB and insert to CImg
 	for (int i = 0; i < height; i++)
 	{

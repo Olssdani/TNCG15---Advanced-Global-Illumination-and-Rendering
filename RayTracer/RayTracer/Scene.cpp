@@ -84,3 +84,4 @@ void Scene::initTetra()
 {
 	tetra[0] = Tetrahedron();
 }
+

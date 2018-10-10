@@ -4,7 +4,7 @@
 
 Tetrahedron::Tetrahedron()
 {
-	Vertex v = Vertex(8, 3, 2, 1);
+	Vertex v = Vertex(8, 3, -4, 1);
 	CreateTetra(v);
 }
 

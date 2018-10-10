@@ -1,3 +1,5 @@
-﻿  Triangle.cpp
-  LINK : C:\Users\Daniel olsson\Desktop\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe not found or not built by the last incremental link; performing full link
+﻿  Camera.cpp
+c:\users\daniel olsson\desktop\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(99): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\daniel olsson\desktop\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(100): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\daniel olsson\desktop\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(101): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
   RayTracer.vcxproj -> C:\Users\Daniel olsson\Desktop\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
