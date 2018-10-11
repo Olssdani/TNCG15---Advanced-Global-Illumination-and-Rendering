@@ -1,17 +1,15 @@
 #pragma once
 #include <iostream>
-#include "Vertex.h"
+class Vertex;
 
 class Direction
 {
 public:
 	Direction();
-	Direction(double _x, double _y, double _z);
-	Direction(Vertex p);
-	~Direction();
-	Direction operator-(Direction a);
-	double Scalar(Direction a);
-
+	Direction(const double &_x, const double &_y, const double &_z);
+	Direction operator-(const Direction &a)const;
+	double Scalar(const Direction &a)const;
+	Direction Cross(const Direction &a);
 	void normalize();
 
 	friend std::ostream& operator<<(std::ostream& os, const Direction& d);

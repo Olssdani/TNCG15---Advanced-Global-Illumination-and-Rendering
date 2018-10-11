@@ -51,8 +51,31 @@ void Camera::render(Scene &scene)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			//Initate the ray from eye through a pixel(i,j)
 			temp = Ray(Eyes[1], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
+			std::vector<TriangelIntersection>  intersections = scene.DetectTriangel(temp);
+			float disttriangel = 1000000.0f;
+			if (intersections.size()>1) {
+				std::cout << intersections.size() << std::endl;
+			}
+			
+			TriangelIntersection ClosetTringle;
+			for (auto inter : intersections)
+			{
+				float dist = Eyes[1].dist(inter.point);
+				if (dist < disttriangel)
+				{
+					disttriangel = dist;
+					ClosetTringle = inter;
+				}
+			}
+
+			PixelArray[i][j].UpdateColor(ClosetTringle.triangle.Color);
+
+
+
+
+			//Initate the ray from eye through a pixel(i,j)
+			/*temp = Ray(Eyes[1], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
 			for (int k = 0; k < 24; k++)
 			{
 				if (scene.Room[k].rayIntersection(temp))
@@ -80,7 +103,7 @@ void Camera::render(Scene &scene)
 				{
 					PixelArray[i][j].UpdateColor(scene.tetra[0].triangle[l].Color);
 				}
-			}
+			}*/
 		}
 	}
 }
@@ -91,6 +114,35 @@ void Camera::createImage()
 	Display picture(height, width);
 	std::cout << "Pixels";
 	//Make doubles to RGB and insert to CImg
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			if (rmax <  PixelArray[i][j].colorDbl.r)
+			{
+				rmax = PixelArray[i][j].colorDbl.r;
+			}
+			if (gmax <  PixelArray[i][j].colorDbl.g)
+			{
+				gmax = PixelArray[i][j].colorDbl.g;
+			}
+			if (bmax < PixelArray[i][j].colorDbl.b)
+			{
+				bmax = PixelArray[i][j].colorDbl.b;
+			}
+
+		}
+	}
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			picture(j, i, 0) = PixelArray[i][j].colorDbl.r*255.99 / rmax;
+			picture(j, i, 1) = PixelArray[i][j].colorDbl.g*255.99 / gmax;
+			picture(j, i, 2) = PixelArray[i][j].colorDbl.b*255.99 / bmax;
+		}
+	}
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)

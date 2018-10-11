@@ -22,19 +22,15 @@ Triangle::Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color)
 }
 
 
-Triangle::~Triangle()
-{
-}
-
-bool Triangle::rayIntersection(Ray r)
+bool Triangle::rayIntersection(Ray &r, Vertex & p)
 {
 	const double EPSILON = 0.000000000001;
 	double a, f, u, v;
 	//Möller trumbore algorithm
-	Direction T = Direction(r.Start) - Direction(p1);
-	Direction E1 = Direction(p2) - Direction(p1);
-	Direction E2 = Direction(p3) - Direction(p1);
-	Direction D = Direction(r.End) - Direction(r.Start);
+	Direction T = r.Start - p1;
+	Direction E1 = p2 - p1;
+	Direction E2 = p3 - p1;
+	Direction D = r.End - r.Start;
 	D.normalize();
 	Direction P = Direction(D.y * E2.z - D.z*E2.y, D.z*E2.x - D.x*E2.z, D.x*E2.y - D.y*E2.x);
 	a = P.Scalar(E1);
@@ -58,6 +54,9 @@ bool Triangle::rayIntersection(Ray r)
 	if (t > EPSILON)
 	{
 		return true;
+		p.x = (1 - u - v)*p1.x + u*p2.x + v*p3.x;
+		p.y = (1 - u - v)*p1.y + u*p2.y + v*p3.y;
+		p.z = (1 - u - v)*p1.z + u*p2.z + v*p3.z;
 	}
 	else
 	{

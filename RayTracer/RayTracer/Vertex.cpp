@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Vertex.h"
+#include <cmath>
+
 
 
 Vertex::Vertex()
@@ -10,7 +12,7 @@ Vertex::Vertex()
 	w = 0;
 }
 
-Vertex::Vertex(double _x, double _y, double _z, double _w)
+Vertex::Vertex(const double &_x, const double &_y, const double &_z, const double &_w)
 {
 	x = _x;
 	y = _y;
@@ -18,16 +20,44 @@ Vertex::Vertex(double _x, double _y, double _z, double _w)
 	w = _w;
 }
 
-Vertex Vertex::operator=(Vertex v)
+Vertex::Vertex(const Vertex& v) 
+{
+	x = v.x;
+	y =	v.y;
+	z = v.z;
+	w = v.w;
+}
+
+Vertex Vertex::operator=(const Vertex &v)
 {
 	x = v.x;
 	y = v.y;
 	z = v.z;
 	w = v.w;
-
 	return *this;
 }
 
+double Vertex::dist(Vertex &v)
+{
+	return sqrt(pow(this->x - v.x, 2.0)+ pow(this->y - v.y, 2.0)+pow(this->z - v.z, 2.0));
+}
+
+bool Vertex::operator==(const Vertex& v)
+{
+	double epsilon = 0.000001;
+	if (std::abs(this->x - v.x)<epsilon &&std::abs(this->y - v.y)<epsilon && std::abs(this->z - v.z)<epsilon)
+	{
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+Direction Vertex::operator-(const Vertex& v)const 
+{
+	return Direction(this->x - v.x, this->y - v.y, this->z - v.z);
+}
 std::ostream& operator<<(std::ostream& os, const Vertex& v)
 {
 	os << "x: " << v.x << " y: " << v.y << " z: " << v.z;

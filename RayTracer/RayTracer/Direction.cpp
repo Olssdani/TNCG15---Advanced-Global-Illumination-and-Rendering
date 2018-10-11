@@ -10,21 +10,14 @@ Direction::Direction()
 	z = 0;
 }
 
-Direction::Direction(double _x, double _y, double _z)
+Direction::Direction(const double &_x, const double &_y, const double &_z)
 {
 	x = _x;
 	y = _y;
 	z = _z;
 }
 
-Direction::Direction(Vertex p)
-{
-	x = p.x;
-	y = p.y;
-	z = p.z;
-}
-
-Direction Direction::operator-(Direction a)
+Direction Direction::operator-(const Direction &a)const
 {
 	Direction ans;
 	ans.x = x - a.x;
@@ -33,14 +26,17 @@ Direction Direction::operator-(Direction a)
 	return ans;
 }
 
-double Direction::Scalar(Direction a)
+double Direction::Scalar(const Direction &a)const
 {
-	return x * a.x + y * a.y + z * a.z;
+	return this->x * a.x + this->y * a.y + this->z * a.z;
 }
 
-
-Direction::~Direction()
+Direction Direction::Cross(const Direction &a) 
 {
+	double NX = this->y*a.z - this->z*a.y;
+	double NY = this->z*a.x - this->x*a.z;
+	double NZ = this->x*a.y - this->y*a.x;
+	return Direction(NX, NY, NZ);
 }
 
 void Direction::normalize()

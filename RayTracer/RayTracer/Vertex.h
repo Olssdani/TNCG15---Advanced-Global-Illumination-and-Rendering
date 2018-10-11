@@ -1,11 +1,17 @@
 #pragma once
 #include <iostream>
+#include "Direction.h"
+#include <cmath>
 class Vertex
 {
 public:
 	Vertex();
-	Vertex(double _x, double _y, double _z, double _w);
-	Vertex operator=(Vertex v);
+	Vertex(const double &_x, const double &_y, const double &_z, const double &_w);
+	Vertex(const Vertex& v);
+	double dist(Vertex &v);
+	Vertex operator=(const Vertex &v);
+	Direction operator-(const Vertex& v)const;
+	bool operator==(const Vertex& v);
 	friend std::ostream& operator<<(std::ostream& os, const Vertex& v);
 	double x;
 	double y;

@@ -24,7 +24,6 @@ unsigned char& Display::operator()(int Posx, int Posy, int Channel)
 void Display::display_image()
 {
 	cimg_library::CImgDisplay main_disp(image, "Click a point");
-	std::cout << "Press any q to quit" << std::endl;
 	char end;
 	std::cin >> end;
 }

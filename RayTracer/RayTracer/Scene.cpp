@@ -6,22 +6,17 @@ Scene::Scene()
 {
 	initVertex();
 	initTriangle();
-	initTetra();
 }
 
 
-Scene::~Scene()
-{
-}
+
 
 void Scene::print()
 {
-	for (int i = 0; i < 24; ++i) 
+	for (auto tri: triangles) 
 	{
-		std::cout << Room[i];
+		std::cout << tri;
 	}
-	
-
 }
 void Scene::initVertex()
 {
@@ -47,7 +42,7 @@ void Scene::initVertex()
 
 void Scene::initTriangle()
 {
-	//Tak
+	/*//Tak
 	Room[0] = Triangle(vertex[0], vertex[1], vertex[6], ColorDbl(1.0, 1.0, 1.0));
 	Room[1] = Triangle(vertex[1], vertex[2], vertex[6], ColorDbl(1.0, 1.0, 1.0));
 	Room[2] = Triangle(vertex[2], vertex[3], vertex[6], ColorDbl(1.0, 1.0, 1.0));
@@ -77,11 +72,64 @@ void Scene::initTriangle()
 	Room[20] = Triangle(vertex[1], vertex[8], vertex[9], ColorDbl(0.0, 1.0, 0.0));
 	Room[21] = Triangle(vertex[1], vertex[9], vertex[2], ColorDbl(0.0, 1.0, 0.0));
 	Room[22] = Triangle(vertex[2], vertex[9], vertex[10], ColorDbl(0.0, 0.0, 1.0));
-	Room[23] = Triangle(vertex[2], vertex[10], vertex[3], ColorDbl(0.0, 0.0, 1.0));
+	Room[23] = Triangle(vertex[2], vertex[10], vertex[3], ColorDbl(0.0, 0.0, 1.0));*/
+	triangles.push_back(Triangle(vertex[0], vertex[1], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[1], vertex[2], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[2], vertex[3], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[3], vertex[4], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[4], vertex[5], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[5], vertex[0], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
+
+	//Golv
+	triangles.push_back(Triangle(vertex[8], vertex[7], vertex[13], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[9], vertex[8], vertex[13], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[10], vertex[9], vertex[13], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[11], vertex[10], vertex[13], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[12], vertex[11], vertex[13], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[7], vertex[12], vertex[13], ColorDbl(1.0, 1.0, 1.0)));
+
+	//Höger
+	triangles.push_back(Triangle(vertex[0], vertex[5], vertex[7], ColorDbl(1.0, 1.0, 0.0)));
+	triangles.push_back(Triangle(vertex[5], vertex[12], vertex[7], ColorDbl(1.0, 1.0, 0.0)));
+	triangles.push_back(Triangle(vertex[12], vertex[5], vertex[4], ColorDbl(1.0, 0.0, 1.0)));
+	triangles.push_back(Triangle(vertex[11], vertex[12], vertex[4], ColorDbl(1.0, 0.0, 1.0)));
+	triangles.push_back(Triangle(vertex[11], vertex[4], vertex[3], ColorDbl(0.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[10], vertex[11], vertex[3], ColorDbl(0.0, 1.0, 1.0)));
+
+	//Vänster
+	triangles.push_back(Triangle(vertex[0], vertex[7], vertex[8], ColorDbl(1.0, 0.0, 0.0)));
+	triangles.push_back(Triangle(vertex[0], vertex[8], vertex[1], ColorDbl(1.0, 0.0, 0.0)));
+	triangles.push_back(Triangle(vertex[1], vertex[8], vertex[9], ColorDbl(0.0, 1.0, 0.0)));
+	triangles.push_back(Triangle(vertex[1], vertex[9], vertex[2], ColorDbl(0.0, 1.0, 0.0)));
+	triangles.push_back(Triangle(vertex[2], vertex[9], vertex[10], ColorDbl(0.0, 0.0, 1.0)));
+	triangles.push_back(Triangle(vertex[2], vertex[10], vertex[3], ColorDbl(0.0, 0.0, 1.0)));
 }
 
-void Scene::initTetra()
+void Scene::AddTetrahedra(Tetrahedron &t) 
 {
-	tetra[0] = Tetrahedron();
+	for (int i = 0; i < 4; i++) 
+	{
+		triangles.push_back(t.triangle[i]);
+	}
+}
+
+std::vector<TriangelIntersection> Scene::DetectTriangel(Ray &r)
+{	
+	std::vector<TriangelIntersection> intersections = {};
+	//Loop over all triangles in the vector
+
+	for (auto &triangle : triangles)
+	{
+		Vertex tempPoint;
+		TriangelIntersection tempIntersect;
+		//Check if the ray intersect the tringle, if true add the triangle to the returning vector
+		if (triangle.rayIntersection(r, tempPoint))
+		{
+			tempIntersect.triangle = triangle;
+			tempIntersect.point = tempPoint;
+			intersections.push_back(tempIntersect);
+		}
+	}
+	return intersections;
 }
 
