@@ -53,10 +53,11 @@ bool Triangle::rayIntersection(Ray &r, Vertex & p)
 	double t = Q.Scalar(E2) * f;
 	if (t > EPSILON)
 	{
-		return true;
+		
 		p.x = (1 - u - v)*p1.x + u*p2.x + v*p3.x;
 		p.y = (1 - u - v)*p1.y + u*p2.y + v*p3.y;
 		p.z = (1 - u - v)*p1.z + u*p2.z + v*p3.z;
+		return true;
 	}
 	else
 	{

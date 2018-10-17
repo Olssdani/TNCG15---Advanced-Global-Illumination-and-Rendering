@@ -9,7 +9,7 @@ Camera::Camera()
 	//Hardcoded Eye postion
 	Eyes[0] = Vertex(-2.0, 0.0, 0.0, 0.0);
 	Eyes[1] = Vertex(-1.0, 0.0, 0.0, 0.0);
-	Eye = 0;
+	Eye = 1;
 
 	//Intiate the array
 	for (int i = 0; i < height; i++)
@@ -51,25 +51,22 @@ void Camera::render(Scene &scene)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			temp = Ray(Eyes[1], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
+			temp = Ray(Eyes[Eye], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
 			std::vector<TriangelIntersection>  intersections = scene.DetectTriangel(temp);
 			float disttriangel = 1000000.0f;
-			if (intersections.size()>1) {
-				std::cout << intersections.size() << std::endl;
-			}
 			
-			TriangelIntersection ClosetTringle;
+			TriangelIntersection ClosestTringle;
 			for (auto inter : intersections)
 			{
-				float dist = Eyes[1].dist(inter.point);
+				float dist = Eyes[Eye].dist(inter.point);
 				if (dist < disttriangel)
 				{
 					disttriangel = dist;
-					ClosetTringle = inter;
+					ClosestTringle = inter;
 				}
 			}
 
-			PixelArray[i][j].UpdateColor(ClosetTringle.triangle.Color);
+			PixelArray[i][j].UpdateColor(ClosestTringle.triangle.Color);
 
 
 

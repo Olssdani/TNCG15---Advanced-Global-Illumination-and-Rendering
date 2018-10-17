@@ -7,6 +7,7 @@ struct TriangelIntersection
 {
 	Triangle triangle;
 	Vertex point;
+	float t;
 };
 
 
@@ -23,11 +24,7 @@ public:
 
 private:
 	Vertex vertex[14];
-
 	void initVertex();
 	void initTriangle();
-
-
-	
 };
 

@@ -130,6 +130,9 @@ std::vector<TriangelIntersection> Scene::DetectTriangel(Ray &r)
 			intersections.push_back(tempIntersect);
 		}
 	}
+
+
+
 	return intersections;
 }
 

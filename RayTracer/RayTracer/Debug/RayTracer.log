@@ -1,9 +1,2 @@
-﻿  Camera.cpp
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(64): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(141): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(142): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(143): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(150): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(151): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(152): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+﻿  RayTracer.cpp
   RayTracer.vcxproj -> C:\Users\Daniel olsson\Desktop\TNCG15\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
