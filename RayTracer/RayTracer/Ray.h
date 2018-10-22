@@ -10,9 +10,6 @@ class Ray
 public:
 	Ray();
 	Ray(Vertex _Start, Vertex _End);
-	Ray BounceRay();
-
-	void GetLocalCoordSyst(Vertex &Point);
 
 
 

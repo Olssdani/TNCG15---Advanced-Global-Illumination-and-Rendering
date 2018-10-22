@@ -39,6 +39,11 @@ Direction Direction::Cross(const Direction &a)
 	return Direction(NX, NY, NZ);
 }
 
+double Direction::Length() 
+{
+	return sqrt(pow(x, 2.0) + pow(y, 2.0) + pow(z, 2.0));
+}
+
 void Direction::normalize()
 {
 	double dist = sqrt(x*x + y * y + z * z);
@@ -46,6 +51,16 @@ void Direction::normalize()
 	y = y / dist;
 	z = z / dist;
 }
+
+Direction Direction::operator*(const double &a)const
+{
+	Direction temp;
+	temp.x = x*a;
+	temp.y = y*a;
+	temp.z = z*a;
+	return temp;
+}
+
 
 std::ostream& operator<<(std::ostream& os, const Direction& d)
 {

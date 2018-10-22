@@ -4,6 +4,8 @@
 #include <vector>
 #include "Ray.h"
 #include "glm/glm.hpp"
+#include "Light.h";
+#include "Direction.h"
 
 struct TriangelIntersection
 {
@@ -21,12 +23,16 @@ public:
 	TriangelIntersection DetectTriangel(Ray &r);
 	//Triangle Room[24];
 	std::vector<Triangle> triangles;
+	Light light;
 	void AddTetrahedra(Tetrahedron &t);
-	//Tetrahedron tetra[1];
-
+	void AddLightSource(Light &L);
+	ColorDbl GetLightContribution(Vertex &point, Direction &Normal);
+	const static int NR_SHADOW_RAYS = 200;
 private:
 	Vertex vertex[14];
 	void initVertex();
 	void initTriangle();
+	
+
 };
 

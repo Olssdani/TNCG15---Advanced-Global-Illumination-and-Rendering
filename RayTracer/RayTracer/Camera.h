@@ -25,9 +25,7 @@ private:
 	Pixel** PixelArray = new Pixel*[height];
 
 	//Maximum color value
-	double rmax = 0.0;
-	double gmax = 0.0;
-	double bmax = 0.0;
+	double max = 0.0;
 
 };
 

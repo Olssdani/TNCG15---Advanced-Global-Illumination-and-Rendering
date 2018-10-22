@@ -19,6 +19,7 @@ Triangle::Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color)
 	p3 = _p3;
 	Color = _Color;
 	normal = normalCalc();
+	normal.normalize();
 }
 
 
@@ -53,10 +54,7 @@ bool Triangle::rayIntersection(Ray &r, Vertex & p)
 	double t = Q.Scalar(E2) * f;
 	if (t > EPSILON)
 	{
-		
-		p.x = (1 - u - v)*p1.x + u*p2.x + v*p3.x;
-		p.y = (1 - u - v)*p1.y + u*p2.y + v*p3.y;
-		p.z = (1 - u - v)*p1.z + u*p2.z + v*p3.z;
+		p = GetBarycentric(u, v);
 		return true;
 	}
 	else
@@ -81,4 +79,32 @@ std::ostream& operator<<(std::ostream& os, const Triangle& t)
 {
 	os << "p1: " << t.p1 << std::endl << "p2: " << t.p2 << std::endl << "p3: " << t.p3 << std::endl << "Normal: " << t.normal << std::endl;
 	return os;
+}
+
+double Triangle::GetArea()
+{
+	Direction AB= p2 - p1;
+	Direction AC= p3 - p1;
+	return AB.Cross(AC).Length();
+}
+
+Vertex Triangle::GetRandomPoint()
+{
+	double u = ((double)rand()) / (double)RAND_MAX;
+	double v = ((double)rand()) / (double)RAND_MAX;
+	if (u + v > 1.0) {
+		return GetRandomPoint();
+	}
+
+	return GetBarycentric(u, v);
+
+}
+
+Vertex Triangle::GetBarycentric(double u, double v)
+{
+	Vertex p;
+	p.x = (1 - u - v)*p1.x + u*p2.x + v*p3.x;
+	p.y = (1 - u - v)*p1.y + u*p2.y + v*p3.y;
+	p.z = (1 - u - v)*p1.z + u*p2.z + v*p3.z;
+	return p;
 }

@@ -47,6 +47,7 @@ void Camera::render(Scene &scene)
 	//Variables
 	Ray temp;
 	//Loop over all pixels
+	std::cout << scene.NR_SHADOW_RAYS << std::endl;
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
@@ -54,11 +55,12 @@ void Camera::render(Scene &scene)
 			temp = Ray(Eyes[Eye], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
 			TriangelIntersection  intersections = scene.DetectTriangel(temp);
 
+			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
 
 
-
-			PixelArray[i][j].UpdateColor(intersections.triangle.Color);
+			PixelArray[i][j].UpdateColor(intersections.triangle.Color*directlight);
 		}
+		std::cout << (double)i/height*100.0 << "%" << std::endl;
 	}
 }
 
@@ -66,23 +68,22 @@ void Camera::render(Scene &scene)
 void Camera::createImage()
 {
 	Display picture(height, width);
-	std::cout << "Pixels";
 	//Make doubles to RGB and insert to CImg
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (rmax <  PixelArray[i][j].colorDbl.r)
+			if (max <  PixelArray[i][j].colorDbl.r)
 			{
-				rmax = PixelArray[i][j].colorDbl.r;
+				max = PixelArray[i][j].colorDbl.r;
 			}
-			if (gmax <  PixelArray[i][j].colorDbl.g)
+			if (max <  PixelArray[i][j].colorDbl.g)
 			{
-				gmax = PixelArray[i][j].colorDbl.g;
+				max = PixelArray[i][j].colorDbl.g;
 			}
-			if (bmax < PixelArray[i][j].colorDbl.b)
+			if (max < PixelArray[i][j].colorDbl.b)
 			{
-				bmax = PixelArray[i][j].colorDbl.b;
+				max = PixelArray[i][j].colorDbl.b;
 			}
 
 		}
@@ -92,18 +93,9 @@ void Camera::createImage()
 	{
 		for (int j = 0; j < width; j++)
 		{
-			picture(j, i, 0) = PixelArray[i][j].colorDbl.r*255.99 / rmax;
-			picture(j, i, 1) = PixelArray[i][j].colorDbl.g*255.99 / gmax;
-			picture(j, i, 2) = PixelArray[i][j].colorDbl.b*255.99 / bmax;
-		}
-	}
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			picture(j, i, 0) = PixelArray[i][j].colorDbl.r*255.99/ rmax;
-			picture(j, i, 1) = PixelArray[i][j].colorDbl.g*255.99 / gmax;
-			picture(j, i, 2) = PixelArray[i][j].colorDbl.b*255.99 / bmax;
+			picture(j, i, 0) = sqrt(PixelArray[i][j].colorDbl.r)*255.99 / sqrt(max);
+			picture(j, i, 1) = sqrt(PixelArray[i][j].colorDbl.g)*255.99 / sqrt(max);
+			picture(j, i, 2) = sqrt(PixelArray[i][j].colorDbl.b)*255.99 / sqrt(max);
 		}
 	}
 	//Show

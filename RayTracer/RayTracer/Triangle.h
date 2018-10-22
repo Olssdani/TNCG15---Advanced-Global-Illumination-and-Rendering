@@ -13,6 +13,9 @@ public:
 	Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color);
 	bool rayIntersection(Ray &r, Vertex &p);
 	Direction normalCalc();
+	double GetArea();
+	Vertex GetRandomPoint();
+
 
 	friend std::ostream& operator<<(std::ostream& os, const Triangle& t);
 	//variable
@@ -21,6 +24,9 @@ public:
 	Vertex p3;
 	ColorDbl Color;
 	Direction normal;
+
+private:
+	Vertex GetBarycentric(double u, double v);
 
 };
 
