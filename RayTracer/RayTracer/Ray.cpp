@@ -18,3 +18,9 @@ Ray::Ray(Vertex _Start, Vertex _End )
 	triangle = nullptr;
 }
 
+void Ray::GetLocalCoordSyst(Vertex &Point) 
+{
+	Vertex X
+
+
+}

@@ -16,6 +16,11 @@ ColorDbl::ColorDbl(double _r, double _g, double _b)
 	b = _b;
 }
 
-ColorDbl::~ColorDbl()
+ColorDbl ColorDbl::operator*(double t)const 
 {
+	ColorDbl temp;
+	temp.r = r * t;
+	temp.b = b * t;
+	temp.g = g * t;
+	return temp;
 }

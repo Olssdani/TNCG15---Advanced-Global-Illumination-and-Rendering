@@ -73,6 +73,7 @@ void Scene::initTriangle()
 	Room[21] = Triangle(vertex[1], vertex[9], vertex[2], ColorDbl(0.0, 1.0, 0.0));
 	Room[22] = Triangle(vertex[2], vertex[9], vertex[10], ColorDbl(0.0, 0.0, 1.0));
 	Room[23] = Triangle(vertex[2], vertex[10], vertex[3], ColorDbl(0.0, 0.0, 1.0));*/
+	//Tak
 	triangles.push_back(Triangle(vertex[0], vertex[1], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
 	triangles.push_back(Triangle(vertex[1], vertex[2], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
 	triangles.push_back(Triangle(vertex[2], vertex[3], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
@@ -113,26 +114,33 @@ void Scene::AddTetrahedra(Tetrahedron &t)
 	}
 }
 
-std::vector<TriangelIntersection> Scene::DetectTriangel(Ray &r)
+TriangelIntersection Scene::DetectTriangel(Ray &r)
 {	
 	std::vector<TriangelIntersection> intersections = {};
 	//Loop over all triangles in the vector
+	float disttriangel = 1000000.0f;
+	TriangelIntersection ClosestTringle;
 
 	for (auto &triangle : triangles)
 	{
 		Vertex tempPoint;
 		TriangelIntersection tempIntersect;
 		//Check if the ray intersect the tringle, if true add the triangle to the returning vector
+		
 		if (triangle.rayIntersection(r, tempPoint))
 		{
 			tempIntersect.triangle = triangle;
 			tempIntersect.point = tempPoint;
-			intersections.push_back(tempIntersect);
+			
+			float dist = r.Start.dist(tempIntersect.point);
+			if (dist < disttriangel) {
+				disttriangel = dist;
+				ClosestTringle = tempIntersect;
+			}
 		}
 	}
 
-
-
-	return intersections;
+	
+	return ClosestTringle;
 }
 

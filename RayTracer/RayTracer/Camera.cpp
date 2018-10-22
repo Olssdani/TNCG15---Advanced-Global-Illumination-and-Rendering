@@ -52,55 +52,12 @@ void Camera::render(Scene &scene)
 		for (int j = 0; j < width; j++)
 		{
 			temp = Ray(Eyes[Eye], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
-			std::vector<TriangelIntersection>  intersections = scene.DetectTriangel(temp);
-			float disttriangel = 1000000.0f;
-			
-			TriangelIntersection ClosestTringle;
-			for (auto inter : intersections)
-			{
-				float dist = Eyes[Eye].dist(inter.point);
-				if (dist < disttriangel)
-				{
-					disttriangel = dist;
-					ClosestTringle = inter;
-				}
-			}
-
-			PixelArray[i][j].UpdateColor(ClosestTringle.triangle.Color);
+			TriangelIntersection  intersections = scene.DetectTriangel(temp);
 
 
 
 
-			//Initate the ray from eye through a pixel(i,j)
-			/*temp = Ray(Eyes[1], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
-			for (int k = 0; k < 24; k++)
-			{
-				if (scene.Room[k].rayIntersection(temp))
-				{
-					PixelArray[i][j].UpdateColor(scene.Room[k].Color);	
-				}
-			
-				//Update the max colorvalue
-				if (rmax < scene.Room[k].Color.r)
-				{
-					rmax = scene.Room[k].Color.r;
-				}
-				if (gmax < scene.Room[k].Color.g)
-				{
-					gmax = scene.Room[k].Color.g;
-				}
-				if (bmax < scene.Room[k].Color.b)
-				{
-					bmax = scene.Room[k].Color.b;
-				}
-			}
-			for (int l = 0; l < 4; l++)
-			{
-				if (scene.tetra[0].triangle[l].rayIntersection(temp))
-				{
-					PixelArray[i][j].UpdateColor(scene.tetra[0].triangle[l].Color);
-				}
-			}*/
+			PixelArray[i][j].UpdateColor(intersections.triangle.Color);
 		}
 	}
 }

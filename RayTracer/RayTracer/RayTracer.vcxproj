@@ -153,10 +153,12 @@
     <ClInclude Include="ColorDbl.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Surface.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tetrahedron.h" />
     <ClInclude Include="Triangle.h" />
@@ -167,6 +169,7 @@
     <ClCompile Include="ColorDbl.cpp" />
     <ClCompile Include="Direction.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RayTracer.cpp" />
@@ -177,6 +180,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Tetrahedron.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vertex.cpp" />

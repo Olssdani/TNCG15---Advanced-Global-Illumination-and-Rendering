@@ -2,6 +2,8 @@
 #include "Triangle.h"
 #include "Tetrahedron.h"
 #include <vector>
+#include "Ray.h"
+#include "glm/glm.hpp"
 
 struct TriangelIntersection
 {
@@ -16,7 +18,7 @@ class Scene
 public:
 	Scene();
 	void print();
-	std::vector<TriangelIntersection> DetectTriangel(Ray &r);
+	TriangelIntersection DetectTriangel(Ray &r);
 	//Triangle Room[24];
 	std::vector<Triangle> triangles;
 	void AddTetrahedra(Tetrahedron &t);
