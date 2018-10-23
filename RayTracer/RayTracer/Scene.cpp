@@ -8,9 +8,6 @@ Scene::Scene()
 	initTriangle();
 }
 
-
-
-
 void Scene::print()
 {
 	for (auto tri: triangles) 
@@ -99,13 +96,13 @@ TriangelIntersection Scene::DetectTriangel(Ray &r)
 	{
 		Vertex tempPoint;
 		TriangelIntersection tempIntersect;
-		//Check if the ray intersect the tringle, if true add the triangle to the returning vector
-		
+		//Check if the ray intersect the tringle, if true add the triangle to the returning vector		
 		if (triangle.rayIntersection(r, tempPoint))
 		{
 			tempIntersect.triangle = triangle;
 			tempIntersect.point = tempPoint;
 			
+			//Check for closest triangle
 			float dist = r.Start.dist(tempIntersect.point);
 			if (dist < disttriangel) {
 				disttriangel = dist;
@@ -113,8 +110,6 @@ TriangelIntersection Scene::DetectTriangel(Ray &r)
 			}
 		}
 	}
-
-	
 	return ClosestTringle;
 }
 
@@ -123,35 +118,48 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 {
 	ColorDbl clr;
 
-	for (int i = 0; i < NR_SHADOW_RAYS; i++)
+	//Loop for all shadowrays
+	for (int i = 0; i < 200; i++)
 	{
-		//std::cout << i << std::endl;
 		//Get direction towards arbitary point on light triangle
 		Vertex Randomp = light.GetTringle().GetRandomPoint();
 		Ray r(point, Randomp);
+		
 		//Get the closest intersection
 		TriangelIntersection inter = DetectTriangel(r);
 
+		//Get the length from point to light/intersection
 		double LightLenght = point.dist(Randomp);
 		double InterLenght = point.dist(inter.point);
+
+		//If interseption length is larger than lightlength just skip rest
 		if (abs(LightLenght - InterLenght) > 0.0001) {
 			continue;
 		}
+		//Normalize normal "unnecessary?"
 		Normal.normalize();
+
+		//Get a direction from point to light
 		Direction TowardsLight = r.End - r.Start;
 
-		double Cosin = TowardsLight.Scalar(Normal);
-		double Cosout = (TowardsLight*-1).Scalar(light.GetTringle().normal);
-		if (Cosout < 0) {
-			Cosout = 0.0;
+		// get the geometric scalar
+		double Cos_in = TowardsLight.Scalar(Normal)/ TowardsLight.Length();
+		double Cos_out = (TowardsLight*-1).Scalar(light.GetTringle().normal)/ TowardsLight.Length();
+		if (Cos_out < 0) {
+			Cos_out = 0.0;
 		}
-		else if (Cosout > 1.0) {
-			Cosout = 1.0;
+		else if (Cos_out > 1.0) {
+			Cos_out = 1.0;
 		}
-		
-		double Geometric = Cosin*Cosout/pow(r.Start.dist(r.End), 2.0);
-		clr += light.GetTringle().Color*Geometric;
+		double Geometric = Cos_in * Cos_out;
+
+		if (true) {
+
+		}
+		//Add light and the geometric 
+		clr += light.GetTringle().Color*Geometric/(pow(TowardsLight.x,2.0)+ pow(TowardsLight.y, 2.0)+ pow(TowardsLight.z, 2.0));
 		
 	}
-	return clr*light.GetTringle().GetArea()/(double)NR_SHADOW_RAYS;
+	//Add area to light and divide by nr of shadowrays
+	return clr*light.GetTringle().GetArea()/(double)200.0;
 }

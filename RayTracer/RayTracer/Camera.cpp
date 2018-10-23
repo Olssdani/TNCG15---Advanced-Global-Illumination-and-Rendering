@@ -47,7 +47,7 @@ void Camera::render(Scene &scene)
 	//Variables
 	Ray temp;
 	//Loop over all pixels
-	std::cout << scene.NR_SHADOW_RAYS << std::endl;
+	//std::cout << scene.NR_SHADOW_RAYS << std::endl;
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
@@ -60,6 +60,7 @@ void Camera::render(Scene &scene)
 
 			PixelArray[i][j].UpdateColor(intersections.triangle.Color*directlight);
 		}
+		
 		std::cout << (double)i/height*100.0 << "%" << std::endl;
 	}
 }

@@ -22,12 +22,14 @@ public:
 	void print();
 	TriangelIntersection DetectTriangel(Ray &r);
 	//Triangle Room[24];
+
 	std::vector<Triangle> triangles;
 	Light light;
 	void AddTetrahedra(Tetrahedron &t);
 	void AddLightSource(Light &L);
 	ColorDbl GetLightContribution(Vertex &point, Direction &Normal);
-	const static int NR_SHADOW_RAYS = 200;
+	//const static int NR_SHADOW_RAYS = 20;
+
 private:
 	Vertex vertex[14];
 	void initVertex();

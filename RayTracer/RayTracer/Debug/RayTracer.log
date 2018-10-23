@@ -1,10 +1,4 @@
-﻿  Camera.cpp
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(96): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(97): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\daniel olsson\desktop\tncg15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(98): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Scene.cpp
-  RayTracer.cpp
-  RayTracer.vcxproj -> C:\Users\Daniel olsson\Desktop\TNCG15\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
+﻿  Scene.cpp
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(106): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  RayTracer.vcxproj -> C:\Users\nille\Documents\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
