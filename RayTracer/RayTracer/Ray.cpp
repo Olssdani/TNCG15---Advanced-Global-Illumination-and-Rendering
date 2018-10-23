@@ -8,6 +8,7 @@ Ray::Ray()
 	End = Vertex();
 	Color = ColorDbl();
 	triangle = nullptr;
+	dir = End - Start;
 }
 
 Ray::Ray(Vertex _Start, Vertex _End )
@@ -16,5 +17,6 @@ Ray::Ray(Vertex _Start, Vertex _End )
 	End = _End;
 	Color = ColorDbl();
 	triangle = nullptr;
+	dir = End - Start;
 }
 

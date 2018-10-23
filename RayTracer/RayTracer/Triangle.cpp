@@ -22,6 +22,17 @@ Triangle::Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color)
 	normal.normalize();
 }
 
+Triangle::Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color, int type)
+{
+	p1 = _p1;
+	p2 = _p2;
+	p3 = _p3;
+	Color = _Color;
+	normal = normalCalc();
+	normal.normalize();
+	surface = type;
+}
+
 
 bool Triangle::rayIntersection(Ray &r, Vertex & p)
 {
@@ -92,6 +103,7 @@ Vertex Triangle::GetRandomPoint()
 {
 	double u = ((double)rand()) / (double)RAND_MAX;
 	double v = ((double)rand()) / (double)RAND_MAX;
+	//double v = 1.0 - u;
 	if (u + v > 1.0) {
 		return GetRandomPoint();
 	}

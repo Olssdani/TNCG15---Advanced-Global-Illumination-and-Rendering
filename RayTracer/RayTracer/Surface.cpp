@@ -26,5 +26,5 @@ ColorDbl Surface::Reflect()const
 }
 ColorDbl Surface::LambertianReflection()const
 {
-	return color*(rcoef / M_PI);
+	return color*(rcoef);
 }

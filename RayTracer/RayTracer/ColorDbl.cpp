@@ -50,3 +50,9 @@ ColorDbl ColorDbl::operator*(ColorDbl c)const
 	temp.g = g * c.g;
 	return temp;
 }
+
+std::ostream& operator<<(std::ostream& os, const ColorDbl& c)
+{
+	os << "r: " << c.r << " g: " << c.g << " b: " << c.b;
+	return os;
+}

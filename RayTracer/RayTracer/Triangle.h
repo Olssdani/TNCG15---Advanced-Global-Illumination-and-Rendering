@@ -5,6 +5,9 @@
 
 
 class Ray;
+const int LAMBERTIAN = 0;
+const int SPECULAR = 1;
+const int LIGHtSOURCE = 2;
 
 class Triangle
 {
@@ -15,7 +18,7 @@ public:
 	Direction normalCalc();
 	double GetArea();
 	Vertex GetRandomPoint();
-
+	Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color, int type);
 
 	friend std::ostream& operator<<(std::ostream& os, const Triangle& t);
 	//variable
@@ -24,6 +27,8 @@ public:
 	Vertex p3;
 	ColorDbl Color;
 	Direction normal;
+	int surface = LAMBERTIAN;
+	double rcoef = 0.8;
 
 private:
 	Vertex GetBarycentric(double u, double v);

@@ -40,7 +40,7 @@ void Scene::initVertex()
 void Scene::initTriangle()
 {
 	//Tak
-	triangles.push_back(Triangle(vertex[0], vertex[1], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
+	//triangles.push_back(Triangle(vertex[0], vertex[1], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
 	triangles.push_back(Triangle(vertex[1], vertex[2], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
 	triangles.push_back(Triangle(vertex[2], vertex[3], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
 	triangles.push_back(Triangle(vertex[3], vertex[4], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
@@ -83,6 +83,8 @@ void Scene::AddTetrahedra(Tetrahedron &t)
 void Scene::AddLightSource(Light &L)
 {
 	light = L;
+
+	triangles.push_back(light.GetTringle());
 }
 
 TriangelIntersection Scene::DetectTriangel(Ray &r)
@@ -119,7 +121,7 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 	ColorDbl clr;
 
 	//Loop for all shadowrays
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		//Get direction towards arbitary point on light triangle
 		Vertex Randomp = light.GetTringle().GetRandomPoint();
@@ -161,5 +163,5 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 		
 	}
 	//Add area to light and divide by nr of shadowrays
-	return clr*light.GetTringle().GetArea()/(double)200.0;
+	return clr*light.GetTringle().GetArea()/(double)4.0;
 }

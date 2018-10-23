@@ -16,10 +16,10 @@ public:
 
 	Vertex Start;
 	Vertex End;
+	Direction dir;
 	ColorDbl Color;
 	Triangle *triangle;
-	glm::mat4 tranform;
-	glm::mat4 invtransform;
+
 };
 
 

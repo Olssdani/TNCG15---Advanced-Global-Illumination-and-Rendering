@@ -15,6 +15,9 @@ public:
 	void createImage();
 	//Change Eye
 	void ChangeEye();
+
+	ColorDbl CastRay(Ray &r, Scene &scene, int depth);
+	//ColorDbl CastRay(Ray &r, Scene &scene, int depth);
 private:
 	static const int height = 800;
 	static const int width = 800;
