@@ -10,7 +10,8 @@ public:
 	ColorDbl operator*(double t)const;
 	ColorDbl operator*(ColorDbl c)const;
 	ColorDbl operator/(double t)const;
-	ColorDbl operator+=(ColorDbl c);
+	void operator+=(ColorDbl c);
+	ColorDbl operator+(ColorDbl c);
 
 	//ColorDbl operator*(ColorDbl c, double t);
 	friend std::ostream& operator<<(std::ostream& os, const ColorDbl& c);

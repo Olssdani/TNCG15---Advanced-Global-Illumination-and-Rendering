@@ -55,7 +55,7 @@ void Camera::render(Scene &scene)
 			ColorDbl clr;
 			temp = Ray(Eyes[Eye], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
 			
-			clr += CastRay(temp, scene, 0);
+			clr = CastRay(temp, scene, 0);
 			//std::cout << clr.r << " " << clr.b << " " << clr.g << std::endl;
 
 			PixelArray[i][j].UpdateColor(clr);
@@ -82,15 +82,15 @@ void Camera::render(Scene &scene)
 ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth)
 {
 	//Colordbl temp
-	ColorDbl clr;
-	
+	ColorDbl clr = ColorDbl();
+	Ray Rout;
 	//find intersection
 	TriangelIntersection  intersections = scene.DetectTriangel(r);
 
 	//If lightsource give full colorvalue
 	if (intersections.triangle.surface == LIGHtSOURCE) {
 		clr = intersections.triangle.Color;
-		return clr;
+	
 	}
 
 
@@ -99,19 +99,29 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth)
 		//Angle 
 		double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
 		clr += (intersections.triangle.Color*intersections.triangle.rcoef / M_PI) *cos_angle;
+		Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
+		ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
+		clr = clr * directlight;
 	}
 
-	ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
-	clr = clr * directlight;
+
+
+	if (intersections.triangle.surface == SPECULAR)
+	{
+		intersections.triangle.normal.normalize();
+		Direction Dout = r.dir - intersections.triangle.normal*(intersections.triangle.normal.Scalar(r.dir)*2.0);
+		Rout = Ray(intersections.point, Dout);
+	}
 	
-	Direction Dout = r.dir - intersections.triangle.normal*(intersections.triangle.normal.Scalar(r.dir)*2.0);
-	Vertex Vout = Vertex(intersections.point.x + Dout.x, intersections.point.y + Dout.y, intersections.point.z + Dout.z, 1.0);
-	Ray Rout = Ray(intersections.point, Vout);
+	
+	
 
 	if (depth < 1)
 	{
 		depth++;
-		clr += CastRay(Rout, scene, depth) * intersections.triangle.rcoef;
+		//std::cout << " Before depth " << depth << " color" << clr << std::endl;
+		clr = clr + CastRay(Rout, scene, depth)*0.2;
+		//std::cout << " After  depth" << " Color " << clr << std::endl;
 	}
 	
 	return clr;
@@ -190,6 +200,11 @@ void Camera::createImage()
 			picture(j, i, 0) = sqrt(PixelArray[i][j].colorDbl.r)*255.99 / sqrt(max);
 			picture(j, i, 1) = sqrt(PixelArray[i][j].colorDbl.g)*255.99 / sqrt(max);
 			picture(j, i, 2) = sqrt(PixelArray[i][j].colorDbl.b)*255.99 / sqrt(max);
+
+
+			//picture(j, i, 0) = pow(PixelArray[i][j].colorDbl.r, 1 / 3)*255.99 / pow(max, 1 / 3);
+			//picture(j, i, 1) = pow(PixelArray[i][j].colorDbl.g, 1 / 3)*255.99 / pow(max, 1 / 3);
+			//picture(j, i, 2) = pow(PixelArray[i][j].colorDbl.b, 1 / 3)*255.99 / pow(max, 1 / 3);
 
 			//picture(j, i, 0) = PixelArray[i][j].colorDbl.r*255.99 / max;
 			//picture(j, i, 1) = PixelArray[i][j].colorDbl.g*255.99 / max;

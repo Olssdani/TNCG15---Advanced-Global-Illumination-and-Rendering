@@ -25,6 +25,15 @@ ColorDbl ColorDbl::operator*(double t)const
 	return temp;
 }
 
+ColorDbl ColorDbl::operator+(ColorDbl c)
+{
+	ColorDbl temp;
+	temp.r = r+ c.r;
+	temp.b = b +c.b;
+	temp.g = g +c.g;
+	return temp;
+}
+
 ColorDbl ColorDbl::operator/(double t)const
 {
 	ColorDbl temp;
@@ -34,12 +43,12 @@ ColorDbl ColorDbl::operator/(double t)const
 	return temp;
 }
 
-ColorDbl ColorDbl::operator+=(ColorDbl c)
+void ColorDbl::operator+=(ColorDbl c)
 {
-	this->b += c.b;
-	this->r += c.r;
-	this->g += c.g;
-	return *this;
+
+	this->r +=  c.r;
+	this->b +=  c.b;
+	this->g +=  c.g;
 }
 
 ColorDbl ColorDbl::operator*(ColorDbl c)const

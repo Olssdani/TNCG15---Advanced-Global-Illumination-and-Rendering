@@ -42,7 +42,7 @@ bool Triangle::rayIntersection(Ray &r, Vertex & p)
 	Direction T = r.Start - p1;
 	Direction E1 = p2 - p1;
 	Direction E2 = p3 - p1;
-	Direction D = r.End - r.Start;
+	Direction D = r.dir;
 	D.normalize();
 	Direction P = Direction(D.y * E2.z - D.z*E2.y, D.z*E2.x - D.x*E2.z, D.x*E2.y - D.y*E2.x);
 	a = P.Scalar(E1);
