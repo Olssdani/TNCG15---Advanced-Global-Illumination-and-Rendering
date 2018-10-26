@@ -96,11 +96,12 @@ double Triangle::GetArea()
 {
 	Direction AB= p2 - p1;
 	Direction AC= p3 - p1;
-	return AB.Cross(AC).Length();
+	return AB.Cross(AC).Length()/2;
 }
 
 Vertex Triangle::GetRandomPoint()
 {
+	//srand(time(NULL));
 	double u = ((double)rand()) / (double)RAND_MAX;
 	double v = ((double)rand()) / (double)RAND_MAX;
 	//double v = 1.0 - u;

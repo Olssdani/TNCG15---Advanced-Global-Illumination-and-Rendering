@@ -54,9 +54,9 @@ Ray Ray::SampleLambertian(Direction &normal, Vertex &p)
 	glm::vec4 temp = M *in;*/
 
 	//Direction output = normal;
-	double inclanation = (rand()/RAND_MAX)* (M_PI/2);
-	double azzimut = (rand() / RAND_MAX)* (2*M_PI);;
-
+	
+	double inclanation = ((double)rand()/RAND_MAX)* (M_PI/2);
+	double azzimut = ((double)rand() / RAND_MAX)* (2*M_PI);;
 	glm::dvec3 _in = glm::vec3(dir.x, dir.y, dir.z);
 	glm::dvec3 _normal = glm::normalize(glm::vec3(normal.x, normal.y, normal.z));
 	glm::dvec3 _tangent = glm::normalize((glm::cross(_in, _normal)));

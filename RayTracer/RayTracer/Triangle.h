@@ -2,6 +2,8 @@
 #include "Vertex.h"
 #include "ColorDbl.h"
 #include "Direction.h"
+#include <time.h>  
+
 
 
 class Ray;

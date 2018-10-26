@@ -19,6 +19,7 @@ Light::Light(double watt)
 	vertex[2] = Vertex(5, 0, 5, 1);
 	L0 = watt/ M_PI;
 	triangle =Triangle(vertex[0], vertex[1], vertex[2], ColorDbl(L0, L0, L0), LIGHtSOURCE);
+	std::cout << triangle.GetArea() << std::endl;
 	
 }
 

@@ -6,6 +6,8 @@
 #include "glm/gtx/rotate_vector.hpp"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <time.h>  
+
 
 class Triangle;
 
@@ -26,7 +28,6 @@ public:
 
 private:
 	void TranslateMatrix(glm::mat4 &m, double x, double y, double z);
-	void RotationsMatrix(glm::mat4 &m, Direction X, Direction Y, Direction Z);
 
 };
 

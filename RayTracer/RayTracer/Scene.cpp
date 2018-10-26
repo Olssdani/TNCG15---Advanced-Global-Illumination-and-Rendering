@@ -145,23 +145,37 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 		Direction TowardsLight = r.End - r.Start;
 
 		// get the geometric scalar
-		double Cos_in = TowardsLight.Scalar(Normal)/ TowardsLight.Length();
-		double Cos_out = (TowardsLight*-1).Scalar(light.GetTringle().normal)/ TowardsLight.Length();
-		if (Cos_out < 0) {
-			Cos_out = 0.0;
-		}
-		else if (Cos_out > 1.0) {
+		double Cos_in = TowardsLight.Scalar(Normal);
+		double Cos_out = (TowardsLight*-1).Scalar(light.GetTringle().normal);
+		if (Cos_out > 1.0) {
 			Cos_out = 1.0;
 		}
-		double Geometric = Cos_in * Cos_out;
-
-		if (true) {
-
+		else if (Cos_out < 0.0) {
+			Cos_out = 0.0;
+			}
+		double Denominator = (pow(TowardsLight.Length(), 2.0)*pow(TowardsLight.x, 2.0) + pow(TowardsLight.y, 2.0) + pow(TowardsLight.z, 2.0));
+		if (Denominator < 1.0) {
+			Denominator = 1.0;
 		}
+		double Geometric = Cos_in * Cos_out/Denominator;
+		if (Geometric > 1.0) {
+			Geometric = 1.0;
+		}
+		
+		
+
 		//Add light and the geometric 
-		clr += light.GetTringle().Color*Geometric/(pow(TowardsLight.x,2.0)+ pow(TowardsLight.y, 2.0)+ pow(TowardsLight.z, 2.0));
+		clr += light.GetTringle().Color*Geometric;
+
 		
 	}
+	
 	//Add area to light and divide by nr of shadowrays
-	return clr*light.GetTringle().GetArea()/(double)4.0;
+	clr = clr *(light.GetTringle().GetArea() /4.0);
+	
+	/*if (clr.r > 0 || clr.b > 0 || clr.g > 0) {
+		std::cout << clr << std::endl;
+	}*/
+
+	return clr;
 }

@@ -1,6 +1,6 @@
 ﻿  Camera.cpp
 c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(200): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(201): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(202): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(210): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(211): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(212): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
   RayTracer.vcxproj -> C:\Users\nille\Documents\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe

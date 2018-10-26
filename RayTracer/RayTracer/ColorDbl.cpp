@@ -28,7 +28,7 @@ ColorDbl ColorDbl::operator*(double t)const
 ColorDbl ColorDbl::operator+(ColorDbl c)
 {
 	ColorDbl temp;
-	temp.r = r+ c.r;
+	temp.r = r + c.r;
 	temp.b = b +c.b;
 	temp.g = g +c.g;
 	return temp;
