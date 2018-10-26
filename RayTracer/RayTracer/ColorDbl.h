@@ -6,6 +6,7 @@ class ColorDbl
 public:
 	ColorDbl();
 	ColorDbl(double _r, double _g, double _b);
+	ColorDbl(const ColorDbl &c);
 
 	ColorDbl operator*(double t)const;
 	ColorDbl operator*(ColorDbl c)const;

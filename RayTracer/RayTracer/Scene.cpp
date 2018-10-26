@@ -87,6 +87,10 @@ void Scene::AddLightSource(Light &L)
 	triangles.push_back(light.GetTringle());
 }
 
+void Scene::AddSphere(const Sphere &S) 
+{
+	spheres.push_back(S);
+}
 TriangelIntersection Scene::DetectTriangel(Ray &r)
 {	
 	std::vector<TriangelIntersection> intersections = {};
@@ -116,12 +120,45 @@ TriangelIntersection Scene::DetectTriangel(Ray &r)
 }
 
 
+SphereIntersection Scene::DetectSphere(Ray &r)
+{
+	std::vector<SphereIntersection> intersections = {};
+	//Loop over all triangles in the vector
+	float distSphere = 1000000.0f;
+	SphereIntersection ClosestSphere;
+
+	for (auto &sphere : spheres)
+	{
+		Vertex tempPoint;
+		SphereIntersection tempIntersect;
+		//Check if the ray intersect the tringle, if true add the triangle to the returning vector		
+		if (sphere.RayIntersect(r, tempPoint))
+		{
+			tempIntersect.sphere = sphere;
+			tempIntersect.point = tempPoint;
+			tempIntersect.Normal = sphere.getNormal(tempIntersect.point);
+			tempIntersect.find = true;
+
+			//Check for closest triangle
+			float dist = r.Start.dist(tempIntersect.point);
+			if (dist < distSphere) {
+				distSphere = dist;
+				ClosestSphere = tempIntersect;
+			}
+		}
+	}
+	return ClosestSphere;
+}
+
+
+
+
 ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 {
 	ColorDbl clr;
 
 	//Loop for all shadowrays
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i <20 ; i++)
 	{
 		//Get direction towards arbitary point on light triangle
 		Vertex Randomp = light.GetTringle().GetRandomPoint();
@@ -171,7 +208,7 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 	}
 	
 	//Add area to light and divide by nr of shadowrays
-	clr = clr *(light.GetTringle().GetArea() /4.0);
+	clr = clr *(light.GetTringle().GetArea() /20.0);
 	
 	/*if (clr.r > 0 || clr.b > 0 || clr.g > 0) {
 		std::cout << clr << std::endl;

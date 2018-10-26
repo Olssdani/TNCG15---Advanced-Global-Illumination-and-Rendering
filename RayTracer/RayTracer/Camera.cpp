@@ -53,8 +53,35 @@ void Camera::render(Scene &scene)
 		for (int j = 0; j < width; j++)
 		{
 			ColorDbl clr;
-			temp = Ray(Eyes[Eye], Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0));
+			
+			Vertex middle = Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0.0);
+			//std::cout<< "Middle" << middle << std::endl;
+			
+			/*for (int k = -1; k <= 1; k = k + 2) {
+				for (int m = -1; m <= 1; m = m + 2) {
+
+					Vertex p = Vertex(0.0, middle.y + (0.00125*m / 2.0), middle.z + (0.00125*k / 2.0), 0.0);
+					//std::cout << "other" << p << std::endl;
+					temp = Ray(Eyes[Eye], p);
+					clr = CastRay(temp, scene, 0);
+				}
+			}
+			clr = clr / 4.0;*/
+			
+			temp = Ray(Eyes[Eye], middle);
 			clr = CastRay(temp, scene, 0);
+			
+			
+			
+			/*for (int k = -1; k <= 1; k =k+2) {
+				for (int m = -1; m <=1; m=m+2) {
+					
+					Vertex p = Vertex(0.0, middle.x+(0.00125*m/2.0), middle.y + (0.00125*k/2.0), 0.0);
+					temp = Ray(Eyes[Eye], p);
+					clr = CastRay(temp, scene, 0);
+				}	
+			}		
+			clr = clr / 4.0;*/
 			//std::cout << clr.r << " " << clr.b << " " << clr.g << std::endl;
 
 			/*if (clr.r > 350 || clr.g > 350 || clr.b > 350)
@@ -82,8 +109,22 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth)
 	//Colordbl temp
 	ColorDbl clr = ColorDbl();
 	Ray Rout;
+	
 	//find intersection
 	TriangelIntersection  intersections = scene.DetectTriangel(r);
+	SphereIntersection Sintersection = scene.DetectSphere(r);
+
+	// Find length to each intersection
+	
+	double Slenght = Sintersection.point.dist(r.Start);
+	double Tlenght = intersections.point.dist(r.Start);
+	
+	if (Slenght < Tlenght && Sintersection.find) {
+		//std::cout << Sintersection.sphere.GetColor() << std::endl;
+		ColorDbl dir = scene.GetLightContribution(Sintersection.point, Sintersection.Normal);
+		//std::cout << Sintersection.sphere.GetColor()*dir << std::endl;
+		return Sintersection.sphere.GetColor()*dir;
+	}
 
 	//If lightsource give full colorvalue
 	if (intersections.triangle.surface == LIGHtSOURCE) {
@@ -94,19 +135,22 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth)
 	if (intersections.triangle.surface == LAMBERTIAN)
 	{
 		//Get direct light contribution
+		double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
 		ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
 		clr = intersections.triangle.Color *directlight;
-		Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
 		
-		if (depth < 4)
+		
+		if (depth <1)
 		{
 			depth++;
+			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
+		
 			//double Angle = (Rout.dir).Scalar(intersections.triangle.normal) / (Rout.dir.Length()*intersections.triangle.normal.Length());
-			/*TriangelIntersection  tempinter = scene.DetectTriangel(Rout);
-			Ray temp = Ray(Rout.Start, tempinter.point);
-			double Cos_in = temp.dir.Scalar(intersections.triangle.normal);
-			double Cos_out = (temp.dir*-1).Scalar(tempinter.triangle.normal);
-			if (Cos_out > 1.0) {
+			//TriangelIntersection  tempinter = scene.DetectTriangel(Rout);
+			//Ray temp = Ray(Rout.Start, tempinter.point);
+			//double Cos_in = temp.dir.Scalar(intersections.triangle.normal);
+			//double Cos_out = (temp.dir*-1).Scalar(tempinter.triangle.normal);
+			/*if (Cos_out > 1.0) {
 				Cos_out = 1.0;
 			}
 			else if (Cos_out < 0.0) {
@@ -124,8 +168,9 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth)
 
 			ColorDbl indirectclr = CastRay(Rout, scene, depth);//*Geometric;
 
+			double b = Rout.dir.Scalar(intersections.triangle.normal) / (Rout.dir.Length()*intersections.triangle.normal.Length());
 			//clr = clr+ CastRay(Rout, scene, depth)*0.8/M_PI;
-			clr = clr + (indirectclr)*0.8 / M_PI;
+			clr = clr + (indirectclr)*(intersections.triangle.rcoef / M_PI )*b* 0.8;
 
 		}
 

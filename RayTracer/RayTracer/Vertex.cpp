@@ -28,16 +28,15 @@ Vertex::Vertex(const Vertex& v)
 	w = v.w;
 }
 
-Vertex Vertex::operator=(const Vertex &v)
+void Vertex::operator=(const Vertex &v)
 {
 	x = v.x;
 	y = v.y;
 	z = v.z;
 	w = v.w;
-	return *this;
 }
 
-double Vertex::dist(Vertex &v)
+double Vertex::dist(const Vertex &v)const
 {
 	return sqrt(pow(this->x - v.x, 2.0)+ pow(this->y - v.y, 2.0)+pow(this->z - v.z, 2.0));
 }

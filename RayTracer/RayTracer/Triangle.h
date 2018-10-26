@@ -30,7 +30,7 @@ public:
 	ColorDbl Color;
 	Direction normal;
 	int surface = LAMBERTIAN;
-	double rcoef = 0.8;
+	double rcoef = 0.2;
 
 private:
 	Vertex GetBarycentric(double u, double v);
