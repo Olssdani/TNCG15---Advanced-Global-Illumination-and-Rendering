@@ -102,7 +102,7 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth)
 		{
 			depth++;
 			//double Angle = (Rout.dir).Scalar(intersections.triangle.normal) / (Rout.dir.Length()*intersections.triangle.normal.Length());
-			TriangelIntersection  tempinter = scene.DetectTriangel(Rout);
+			/*TriangelIntersection  tempinter = scene.DetectTriangel(Rout);
 			Ray temp = Ray(Rout.Start, tempinter.point);
 			double Cos_in = temp.dir.Scalar(intersections.triangle.normal);
 			double Cos_out = (temp.dir*-1).Scalar(tempinter.triangle.normal);
@@ -119,10 +119,10 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth)
 			double Geometric = Cos_in * Cos_out / Denominator;
 			if (Geometric > 1.0) {
 				Geometric = 1.0;
-			}
+			}*/
 
 
-			ColorDbl indirectclr = CastRay(Rout, scene, depth)*Geometric;
+			ColorDbl indirectclr = CastRay(Rout, scene, depth);//*Geometric;
 
 			//clr = clr+ CastRay(Rout, scene, depth)*0.8/M_PI;
 			clr = clr + (indirectclr)*0.8 / M_PI;
