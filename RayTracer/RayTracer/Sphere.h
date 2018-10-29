@@ -8,6 +8,7 @@ public:
 	Sphere(const double x, const double y, const double z, const double r, const ColorDbl &c, const int t);
 	Sphere(const Vertex &pos, double r, const ColorDbl &c, const int t);
 	bool RayIntersect(const Ray &ray, Vertex &p);
+	Ray Bounce(Ray &r, Vertex &p);
 	Direction getNormal(const Vertex &p);
 	ColorDbl GetColor();
 

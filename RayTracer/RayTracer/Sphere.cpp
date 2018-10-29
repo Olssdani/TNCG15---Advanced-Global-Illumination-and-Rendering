@@ -54,8 +54,8 @@ bool Sphere::RayIntersect(const Ray &ray, Vertex &p)
 
 	if (sq > 0.0)
 	{
-		d1 += sq;
-		d2 -= sq;
+		d1 += sqrt(sq);
+		d2 -= sqrt(sq);
 		Vertex P1 = Vertex(ray.Start.x + d1 * l.x, ray.Start.y + d1 * l.y, ray.Start.z + d1 * l.z, 1.0);
 		Vertex P2 = Vertex(ray.Start.x + d2 * l.x, ray.Start.y + d2 * l.y, ray.Start.z + d2 * l.z, 1.0);
 		if (ray.Start.dist(P1) < ray.Start.dist(P2))
@@ -65,7 +65,6 @@ bool Sphere::RayIntersect(const Ray &ray, Vertex &p)
 		else {
 			p = P2;
 		}
-
 
 		return true;
 	}else
@@ -79,4 +78,13 @@ Direction Sphere::getNormal(const Vertex &p)
 	Direction temp = Direction(p.x - center.x, p.y - center.y, p.z - center.z);
 	temp.normalize();
 	return temp;
+}
+
+Ray Sphere::Bounce(Ray &r, Vertex &p)
+{
+	Direction direction;
+	Direction normal = getNormal(p);
+	direction = r.dir - normal * (r.dir.Scalar(normal))*2.0;
+	direction.normalize();
+	return Ray(p, direction);
 }

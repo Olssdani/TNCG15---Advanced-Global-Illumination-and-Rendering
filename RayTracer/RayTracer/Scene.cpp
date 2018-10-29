@@ -158,21 +158,26 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 	ColorDbl clr;
 
 	//Loop for all shadowrays
-	for (int i = 0; i <200 ; i++)
+	for (int i = 0; i <4 ; i++)
 	{
 		//Get direction towards arbitary point on light triangle
 		Vertex Randomp = light.GetTringle().GetRandomPoint();
 		Ray r(point, Randomp);
-		
+		double SinterLength =0;
 		//Get the closest intersection
 		TriangelIntersection inter = DetectTriangel(r);
+		SphereIntersection Sinter = DetectSphere(r);
+		double SLenght = 0;
+		if (Sinter.find) {
+			SLenght = point.dist(Sinter.point);
+		}
 
 		//Get the length from point to light/intersection
 		double LightLenght = point.dist(Randomp);
 		double InterLenght = point.dist(inter.point);
 
 		//If interseption length is larger than lightlength just skip rest
-		if (abs(LightLenght - InterLenght) > 0.0001) {
+		if (abs(LightLenght - InterLenght) > 0.0001 || (Sinter.find && SLenght >0.001)) {
 			continue;
 		}
 		//Normalize normal "unnecessary?"
@@ -180,39 +185,34 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 
 		//Get a direction from point to light
 		Direction TowardsLight = r.End - r.Start;
-
+		TowardsLight.normalize();
 		// get the geometric scalar
-		double Cos_in = TowardsLight.Scalar(Normal);
-		double Cos_out = (TowardsLight*-1).Scalar(light.GetTringle().normal);
-		if (Cos_out > 1.0) {
-			Cos_out = 1.0;
-		}
-		else if (Cos_out < 0.0) {
-			Cos_out = 0.0;
-			}
-		double Denominator = (pow(TowardsLight.Length(), 2.0)*pow(TowardsLight.x, 2.0) + pow(TowardsLight.y, 2.0) + pow(TowardsLight.z, 2.0));
-		if (Denominator < 1.0) {
-			Denominator = 1.0;
-		}
-		double Geometric = Cos_in * Cos_out/Denominator;
-		if (Geometric > 1.0) {
-			Geometric = 1.0;
-		}
 		
-		
+		double alpha = TowardsLight.Scalar(Normal);
+		double beta = (TowardsLight*-1).Scalar(light.GetTringle().normal);
 
+		if (beta <0) {
+			alpha = 0.0;
+		}
+		else if (beta > 1.0) {
+			beta = 1.0;
+		}
+
+		double vectorlength = (r.End - r.Start).Length();
+		if (vectorlength < 1.0) {
+			vectorlength = 1.0;
+		}
+		double Geometric = alpha * beta/ pow(vectorlength, 2.0);
+
+		
 		//Add light and the geometric 
-		clr += light.GetTringle().Color*Geometric;
+		double angle = TowardsLight.Scalar(Normal) / (TowardsLight.Length()*Normal.Length());
+		clr += light.GetTringle().Color*light.GetTringle().GetArea()*Geometric*angle*0.8/M_PI;
 
 		
 	}
 	
 	//Add area to light and divide by nr of shadowrays
-	clr = clr *(light.GetTringle().GetArea() /200.0);
-	
-	/*if (clr.r > 0 || clr.b > 0 || clr.g > 0) {
-		std::cout << clr << std::endl;
-	}*/
-
+	clr = clr  /4.0;
 	return clr;
 }
