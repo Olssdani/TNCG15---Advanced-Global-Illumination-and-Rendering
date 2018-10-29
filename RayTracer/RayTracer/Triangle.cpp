@@ -86,6 +86,11 @@ Direction Triangle::normalCalc()
 	
 }
 
+ColorDbl Triangle::LambertianReflection(double angle)
+{
+	return (Color * rcoef / M_PI) * angle;
+}
+
 std::ostream& operator<<(std::ostream& os, const Triangle& t)
 {
 	os << "p1: " << t.p1 << std::endl << "p2: " << t.p2 << std::endl << "p3: " << t.p3 << std::endl << "Normal: " << t.normal << std::endl;

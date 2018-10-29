@@ -137,77 +137,32 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth)
 		//Get direct light contribution
 		double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
 		ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
-		clr = intersections.triangle.Color *directlight;
+		ColorDbl lambertianClr = intersections.triangle.LambertianReflection(cos_angle);
+		clr = lambertianClr *directlight;
 		
+		double randomNr = (double)rand() / RAND_MAX;
 		
-		if (depth <1)
+		double rrTop = glm::max(glm::max(lambertianClr.r, lambertianClr.g), lambertianClr.b);
+		//std::cout << lambertianClr << "    " << rrTop << "   rrtop   " << randomNr << std::endl;
+
+		if (depth <5 && randomNr < rrTop)
 		{
+			//std::cout << depth << std::endl;
 			depth++;
 			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
-		
-			//double Angle = (Rout.dir).Scalar(intersections.triangle.normal) / (Rout.dir.Length()*intersections.triangle.normal.Length());
-			//TriangelIntersection  tempinter = scene.DetectTriangel(Rout);
-			//Ray temp = Ray(Rout.Start, tempinter.point);
-			//double Cos_in = temp.dir.Scalar(intersections.triangle.normal);
-			//double Cos_out = (temp.dir*-1).Scalar(tempinter.triangle.normal);
-			/*if (Cos_out > 1.0) {
-				Cos_out = 1.0;
-			}
-			else if (Cos_out < 0.0) {
-				Cos_out = 0.0;
-			}
-			double Denominator = (pow(temp.dir.Length(), 2.0)*pow(temp.dir.x, 2.0) + pow(temp.dir.y, 2.0) + pow(temp.dir.z, 2.0));
-			if (Denominator < 1.0) {
-				Denominator = 1.0;
-			}
-			double Geometric = Cos_in * Cos_out / Denominator;
-			if (Geometric > 1.0) {
-				Geometric = 1.0;
-			}*/
-
 
 			ColorDbl indirectclr = CastRay(Rout, scene, depth);//*Geometric;
 
-			double b = Rout.dir.Scalar(intersections.triangle.normal) / (Rout.dir.Length()*intersections.triangle.normal.Length());
+			//double b = Rout.dir.Scalar(intersections.triangle.normal) / (Rout.dir.Length()*intersections.triangle.normal.Length());
 			//clr = clr+ CastRay(Rout, scene, depth)*0.8/M_PI;
-			clr = clr + (indirectclr)*(intersections.triangle.rcoef / M_PI )*b* 0.8;
+			clr = clr + (indirectclr)* 0.8;
 
 		}
 
 	}
 
 	return clr;
-	/*if (intersections.triangle.surface == LAMBERTIAN)
-	{
-		//Angle 
-		double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
-		clr += (intersections.triangle.Color*intersections.triangle.rcoef / M_PI) *cos_angle;
-	
-		Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
-		ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
-		clr = clr * directlight;
-	}
 
-
-
-	if (intersections.triangle.surface == SPECULAR)
-	{
-		intersections.triangle.normal.normalize();
-		Direction Dout = r.dir - intersections.triangle.normal*(intersections.triangle.normal.Scalar(r.dir)*2.0);
-		Rout = Ray(intersections.point, Dout);
-	}
-
-	
-
-	if (depth < 0)
-	{
-		depth++;
-		double Angle = (Rout.dir).Scalar(intersections.triangle.normal) / (Rout.dir.Length()*intersections.triangle.normal.Length());
-		clr = clr + CastRay(Rout, scene, depth)*0.8*Angle;
-	
-	}
-	
-	return clr;*/
 }
 
 
