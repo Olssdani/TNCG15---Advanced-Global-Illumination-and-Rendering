@@ -97,6 +97,10 @@ std::ostream& operator<<(std::ostream& os, const Triangle& t)
 	return os;
 }
 
+double Triangle::BRDF()
+{
+	return rcoef / M_PI;
+}
 double Triangle::GetArea()
 {
 	Direction AB= p2 - p1;

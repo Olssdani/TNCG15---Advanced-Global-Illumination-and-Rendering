@@ -69,75 +69,72 @@ void Camera::render(Scene &scene)
 			clr = clr / 4.0;*/
 			
 			temp = Ray(Eyes[Eye], middle);
-			clr = CastRay(temp, scene, 0, 1.0);
-			
-			
-			
-			/*for (int k = -1; k <= 1; k =k+2) {
-				for (int m = -1; m <=1; m=m+2) {
-					
-					Vertex p = Vertex(0.0, middle.x+(0.00125*m/2.0), middle.y + (0.00125*k/2.0), 0.0);
-					temp = Ray(Eyes[Eye], p);
-					clr = CastRay(temp, scene, 0);
-				}	
-			}		
-			clr = clr / 4.0;*/
-			//std::cout << clr.r << " " << clr.b << " " << clr.g << std::endl;
-
-			/*if (clr.r > 350 || clr.g > 350 || clr.b > 350)
-			{
-				std::cout << i << " " << j << std::endl;
-				std::cout << clr.r << " " << clr.b << " " << clr.g << std::endl;
-			}*/
-
-			if (clr.r > 0 || clr.g > 0 || clr.b > 0)
-			{
-				//std::cout << clr << std::endl;
-
+			clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
+			if (scene.light.GetTringle().Color.r > 320) {
+				std::cout << i << j;
 			}
 			
 			PixelArray[i][j].UpdateColor(clr);
 			
 		}
-		
+		std::cout << scene.light.GetTringle().Color << std::endl;
 		std::cout << (double)i/height*100.0 << "%" << std::endl;
 	}
 }
 
-ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, double importance)
+ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 {
-	
-	//Colordbl temp
-	ColorDbl clr = ColorDbl();
 	Ray Rout;
-	
+
 	//find intersection
 	TriangelIntersection  intersections = scene.DetectTriangel(r);
 	SphereIntersection Sintersection = scene.DetectSphere(r);
 
 	// Find length to each intersection
-	
 	double Slenght = Sintersection.point.dist(r.Start);
 	double Tlenght = intersections.point.dist(r.Start);
-	
-	if (Slenght >0.001 && Slenght < Tlenght && Sintersection.find) {
-		Rout = Sintersection.sphere.Bounce(r, Sintersection.point);	
-		clr = CastRay(Rout, scene, depth, importance);
 
-	}else {
+	if (Slenght >0.001 && Slenght < Tlenght && Sintersection.find) {
+		Rout = Sintersection.sphere.Bounce(r, Sintersection.point);
+		return  CastRay(Rout, scene, depth, importance);
+
+	}
+	else {
 		//If lightsource give full colorvalue
 		if (intersections.triangle.surface == LIGHtSOURCE) {
-			clr = intersections.triangle.Color;
-			return clr*importance;
+			return  intersections.triangle.Color*importance;
 		}
-		importance = importance * 0.8;
-		if (intersections.triangle.surface == LAMBERTIAN)
+		else if (intersections.triangle.surface == LAMBERTIAN)
 		{
+			//Get directlight contribution
+			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
+			//Get a random direction from hemisphere
+			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
+			//
+			double hemispherePDF = 1.0 / (2.0*M_PI);
+			double BRDF = intersections.triangle.BRDF();
+
+			importance = importance / hemispherePDF * intersections.triangle.Color*BRDF;
+			double p = std::max(std::max(importance.r, importance.b), importance.g);
+
+			if ((double)rand() / RAND_MAX > p || depth > 5) {
+				return importance * 0.0;
+			}
+			importance = importance * 1.0 / p;
+
+			depth++;
+			ColorDbl indirectlight = CastRay(Rout, scene, depth, importance);
+			return importance * (directlight + indirectlight);
+
+
+
+
+			/*
 			//Get direct light contribution
 			double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
-			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
+
 			ColorDbl lambertianClr = intersections.triangle.LambertianReflection(cos_angle);
-			clr = intersections.triangle.Color * directlight;
+			clr =  directlight;
 
 			double randomNr = (double)rand() / RAND_MAX * (intersections.triangle.rcoef / M_PI);
 
@@ -146,17 +143,16 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, double importance)
 			//std::cout << depth << std::endl;
 
 
-			if (depth < 2)
+			if (depth <3 )
 			{
-				depth++;
-				Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
-				clr = clr + CastRay(Rout, scene, depth, importance)* importance;
+			depth++;
+			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
+			return clr = lambertianClr * (clr + CastRay(Rout, scene, depth, importance)* importance);
 			}
+
+			return lambertianClr * clr;*/
 		}
 	}
-
-	
-	return clr;
 }
 
 

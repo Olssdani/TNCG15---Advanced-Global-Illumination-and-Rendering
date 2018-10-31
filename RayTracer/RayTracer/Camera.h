@@ -2,6 +2,7 @@
 #include "Pixel.h"
 #include <new>
 #include "Scene.h"
+#include <algorithm>
 
 class Camera
 {
@@ -16,7 +17,7 @@ public:
 	//Change Eye
 	void ChangeEye();
 
-	ColorDbl CastRay(Ray &r, Scene &scene, int depth, double importance);
+	ColorDbl CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance);
 	//ColorDbl CastRay(Ray &r, Scene &scene, int depth);
 private:
 	static const int height = 800;
