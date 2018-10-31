@@ -7,6 +7,7 @@
 #include "Light.h";
 #include "Direction.h"
 #include "Sphere.h"
+#include <algorithm>
 
 struct TriangelIntersection
 {
@@ -34,9 +35,9 @@ public:
 	SphereIntersection DetectSphere(Ray &r);
 	//Triangle Room[24];
 
-	std::vector<Triangle> triangles;
-	std::vector<Sphere> spheres;
-	Light light;
+	const std::vector<Triangle> triangles;
+	const std::vector<Sphere> spheres;
+	const Light light;
 	void AddTetrahedra(Tetrahedron &t);
 	void AddLightSource(Light &L);
 	void AddSphere(const Sphere &S);

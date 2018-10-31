@@ -1,6 +1,168 @@
-﻿  Camera.cpp
+﻿  Scene.cpp
 c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(193): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(194): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(195): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-  RayTracer.vcxproj -> C:\Users\nille\Documents\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(44): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(45): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(46): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(47): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(48): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(51): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(52): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(53): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(54): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(55): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(56): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(59): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(60): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(61): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(62): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(63): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(64): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(67): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(68): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(69): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(70): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(71): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(72): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(79): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(85): error C2678: binary '=': no operator found which takes a left-hand operand of type 'const Light' (or there is no acceptable conversion)
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\light.h(19): note: could be 'Light &Light::operator =(const Light &)'
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(85): note: while trying to match the argument list '(const Light, Light)'
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(87): error C2662: 'Triangle &Light::GetTringle(void)': cannot convert 'this' pointer from 'const Light' to 'Light &'
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(87): note: Conversion loses qualifiers
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(87): error C2663: 'std::vector<Triangle,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Triangle
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(92): error C2663: 'std::vector<Sphere,std::allocator<_Ty>>::push_back': 2 overloads have no legal conversion for 'this' pointer
+          with
+          [
+              _Ty=Sphere
+          ]
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(106): error C2662: 'bool Triangle::rayIntersection(Ray &,Vertex &)': cannot convert 'this' pointer from 'const Triangle' to 'Triangle &'
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(106): note: Conversion loses qualifiers
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(112): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(135): error C2662: 'bool Sphere::RayIntersect(const Ray &,Vertex &)': cannot convert 'this' pointer from 'const Sphere' to 'Sphere &'
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(135): note: Conversion loses qualifiers
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(139): error C2662: 'Direction Sphere::getNormal(const Vertex &)': cannot convert 'this' pointer from 'const Sphere' to 'Sphere &'
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(139): note: Conversion loses qualifiers
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(143): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(164): error C2662: 'Triangle &Light::GetTringle(void)': cannot convert 'this' pointer from 'const Light' to 'Light &'
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(164): note: Conversion loses qualifiers
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(164): error C2228: left of '.GetRandomPoint' must have class/struct/union
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(194): error C2662: 'Triangle &Light::GetTringle(void)': cannot convert 'this' pointer from 'const Light' to 'Light &'
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(194): note: Conversion loses qualifiers
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(194): error C2228: left of '.normal' must have class/struct/union
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(194): error C2672: 'max': no matching overloaded function found
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(194): error C2784: '_Ty std::max(std::initializer_list<_Elem>)': could not deduce template argument for 'std::initializer_list<_Elem>' from 'double'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\algorithm(4102): note: see declaration of 'std::max'
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(194): error C2780: 'const _Ty &std::max(const _Ty &,const _Ty &) noexcept(<expr>)': expects 2 arguments - 1 provided
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\algorithm(4094): note: see declaration of 'std::max'
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(194): error C2780: '_Ty std::max(std::initializer_list<_Elem>,_Pr)': expects 2 arguments - 1 provided
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\algorithm(4083): note: see declaration of 'std::max'
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(194): error C2780: 'const _Ty &std::max(const _Ty &,const _Ty &,_Pr) noexcept(<expr>)': expects 3 arguments - 1 provided
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\algorithm(4074): note: see declaration of 'std::max'
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(215): error C2662: 'Triangle &Light::GetTringle(void)': cannot convert 'this' pointer from 'const Light' to 'Light &'
+  c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(215): note: Conversion loses qualifiers
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(215): error C2228: left of '.Color' must have class/struct/union
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(215): error C2228: left of '.GetArea' must have class/struct/union
+  RayTracer.cpp
+c:\users\nille\documents\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\raytracer.cpp(4): fatal error C1041: cannot open program database 'C:\Users\nille\Documents\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\RayTracer\Debug\vc141.idb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+  Generating Code...
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build

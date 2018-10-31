@@ -22,6 +22,7 @@ public:
 	Vertex GetRandomPoint();
 	Triangle(Vertex _p1, Vertex _p2, Vertex _p3, ColorDbl _Color, int type);
 	ColorDbl LambertianReflection(double angle);
+	double BRDF();
 
 	friend std::ostream& operator<<(std::ostream& os, const Triangle& t);
 	//variable
@@ -31,7 +32,7 @@ public:
 	ColorDbl Color;
 	Direction normal;
 	int surface = LAMBERTIAN;
-	double rcoef = 0.8;
+	double rcoef = 1.0;
 
 private:
 	Vertex GetBarycentric(double u, double v);

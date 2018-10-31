@@ -156,7 +156,7 @@ SphereIntersection Scene::DetectSphere(Ray &r)
 ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 {
 	ColorDbl clr;
-
+	double sum = 0;
 	//Loop for all shadowrays
 	for (int i = 0; i <4 ; i++)
 	{
@@ -185,34 +185,34 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 
 		//Get a direction from point to light
 		Direction TowardsLight = r.End - r.Start;
+		double vectorlengthSQ = std::max(1.0, TowardsLight.Scalar(TowardsLight));
+
 		TowardsLight.normalize();
 		// get the geometric scalar
 		
-		double alpha = TowardsLight.Scalar(Normal);
-		double beta = (TowardsLight*-1).Scalar(light.GetTringle().normal);
+		double alpha = std::max(0.0,TowardsLight.Scalar(Normal));
+		double beta = std::max(0.0,(TowardsLight*-1).Scalar(light.GetTringle().normal));
 
-		if (beta <0) {
-			alpha = 0.0;
-		}
-		else if (beta > 1.0) {
-			beta = 1.0;
-		}
-
-		double vectorlength = (r.End - r.Start).Length();
-		if (vectorlength < 1.0) {
-			vectorlength = 1.0;
-		}
-		double Geometric = alpha * beta/ pow(vectorlength, 2.0);
+		//if (beta <0) {
+			//alpha = 0.0;
+		//}
+		//else if (beta > 1.0) {
+			//beta = 1.0;
+		//}
 
 		
+		double Geometric = alpha * beta / vectorlengthSQ;
+
+		sum += Geometric;
 		//Add light and the geometric 
-		double angle = TowardsLight.Scalar(Normal) / (TowardsLight.Length()*Normal.Length());
-		clr += light.GetTringle().Color*light.GetTringle().GetArea()*Geometric*angle*0.8/M_PI;
+		//double angle = TowardsLight.Scalar(Normal) / (TowardsLight.Length()*Normal.Length());
+		//clr += light.GetTringle().Color*light.GetTringle().GetArea()*Geometric*angle*0.8/M_PI;
 
 		
 	}
 	
 	//Add area to light and divide by nr of shadowrays
-	clr = clr  /4.0;
+	clr = (light.GetTringle().Color*light.GetTringle().GetArea())*(sum / 4.0);
+	//clr = clr  /4.0;
 	return clr;
 }
