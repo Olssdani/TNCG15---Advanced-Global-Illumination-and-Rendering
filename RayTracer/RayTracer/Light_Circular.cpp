@@ -1,8 +1,18 @@
 #include "stdafx.h"
 #include "Light_Circular.h"
 
+Light_Circular::Light_Circular()
+{
+	center = Vertex();
+	radius = 0;
+	L0 = 0 / M_PI;
+	EmittingLight = ColorDbl(L0, L0, L0);
+	Area = pow(radius, 2.0)*M_PI;
+	Normal = Direction(0.0,0.0,0.0);
 
-Light_Circular::Light_Circular(const Vertex &_center, const double &_radius, const double _watt, Vertex _Normal)
+}
+
+Light_Circular::Light_Circular(const Vertex &_center, const double &_radius, const double _watt, Direction _Normal)
 {
 	center = _center;
 	radius = _radius;
@@ -24,7 +34,7 @@ const double& Light_Circular::GetLightArea()const
 	return Area;
 }
 
-const Vertex& Light_Circular::GetNormal()const
+const Direction& Light_Circular::GetNormal()const
 {
 	return Normal;
 }
@@ -41,7 +51,6 @@ const Vertex Light_Circular::RandomPointOnLight()const
 }
 
 
-
 bool Light_Circular::rayIntersection(const Ray &r, Vertex &point)const
 {
 	//See where which number t need to be so the ray get the same value as the circle z value
@@ -54,11 +63,11 @@ bool Light_Circular::rayIntersection(const Ray &r, Vertex &point)const
 	double x = r.Start.x + t * r.dir.x;
 	double y = r.Start.y + t * r.dir.y;
 
-	//if(pow(radius,2.0)>)
-	return false;
-
-
-
-
-
+	if (pow(radius, 2.0) > pow( x - center.x, 2.0) + pow(y- center.y, 2.0)) {
+		point = Vertex(x, y, center.z, 1.0);
+		return true;
+	}
+	else {
+		return false;
+	}
 }

@@ -41,7 +41,7 @@ void Scene::initVertex()
 void Scene::initTriangle()
 {
 	//Tak
-	//triangles.push_back(Triangle(vertex[0], vertex[1], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
+	triangles.push_back(Triangle(vertex[0], vertex[1], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
 	triangles.push_back(Triangle(vertex[1], vertex[2], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
 	triangles.push_back(Triangle(vertex[2], vertex[3], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
 	triangles.push_back(Triangle(vertex[3], vertex[4], vertex[6], ColorDbl(1.0, 1.0, 1.0)));
@@ -81,11 +81,11 @@ void Scene::AddTetrahedra(Tetrahedron &t)
 	}
 }
 
-void Scene::AddLightSource(Light &L)
+void Scene::AddLightSource(Light_Circular &L)
 {
 	light = L;
 
-	triangles.push_back(light.GetTringle());
+	//triangles.push_back(light.GetTringle());
 }
 
 void Scene::AddSphere(const Sphere &S) 
@@ -162,7 +162,7 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 	for (int i = 0; i <4; i++)
 	{
 		//Get direction towards arbitary point on light triangle
-		Vertex Randomp = light.GetTringle().GetRandomPoint();
+		Vertex Randomp = light.RandomPointOnLight();
 		Ray r(point, Randomp);
 		double SinterLength = 0;
 		//Get the closest intersection
@@ -186,13 +186,13 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 
 		//Get a direction from point to light
 		Direction TowardsLight = r.End - r.Start;
-		double vectorlengthSQ = std::max(light.GetTringle().GetArea(), TowardsLight.Scalar(TowardsLight));
+		double vectorlengthSQ = std::max(1.0, TowardsLight.Scalar(TowardsLight));
 
 		TowardsLight.normalize();
 		// get the geometric scalar
 
 		double alpha = std::max(0.0, TowardsLight.Scalar(Normal));
-		double beta = std::max(0.0, (TowardsLight*-1).Scalar(light.GetTringle().normal));
+		double beta = std::max(0.0, (TowardsLight*-1).Scalar(light.GetNormal()));
 
 
 		double Geometric = alpha * beta / vectorlengthSQ;
@@ -206,11 +206,11 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 
 
 	//Add area to light and divide by nr of shadowrays
-	clr = (light.GetTringle().Color*light.GetTringle().GetArea())*(sum / 4.0);
-	if (clr.r > light.GetTringle().Color.r || clr.b > light.GetTringle().Color.b || clr.g > light.GetTringle().Color.g)
+	clr = (light.GetLight()*light.GetLightArea())*(sum / 4.0);
+	/*if (clr.r > light.GetTringle().Color.r || clr.b > light.GetTringle().Color.b || clr.g > light.GetTringle().Color.g)
 	{
 		std::cout << "Hllohj";
-	}
+	}*/
 	//clr = clr  /4.0;
 	return clr;
 }

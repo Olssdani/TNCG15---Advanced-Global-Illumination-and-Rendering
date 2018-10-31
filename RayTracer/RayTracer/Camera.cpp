@@ -57,20 +57,19 @@ void Camera::render(Scene &scene)
 			Vertex middle = Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0.0);
 			//std::cout<< "Middle" << middle << std::endl;
 			
-			/*for (int k = -1; k <= 1; k = k + 2) {
+			for (int k = -1; k <= 1; k = k + 2) {
 				for (int m = -1; m <= 1; m = m + 2) {
 
 					Vertex p = Vertex(0.0, middle.y + (0.00125*m / 2.0), middle.z + (0.00125*k / 2.0), 0.0);
 					//std::cout << "other" << p << std::endl;
 					temp = Ray(Eyes[Eye], p);
-					clr = CastRay(temp, scene, 0);
+					clr = CastRay(temp, scene,0, ColorDbl(1.0, 1.0, 1.0));
 				}
 			}
-			clr = clr / 4.0;*/
+			clr = clr / 4.0;
 			
-			temp = Ray(Eyes[Eye], middle);
-
-			clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
+			//temp = Ray(Eyes[Eye], middle);
+			//clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
 
 			
 			PixelArray[i][j].UpdateColor(clr);
@@ -92,6 +91,20 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 	double Slenght = Sintersection.point.dist(r.Start);
 	double Tlenght = intersections.point.dist(r.Start);
 
+	Vertex LightPoint;
+
+	if (scene.light.rayIntersection(r, LightPoint))
+	{
+		double Llength = LightPoint.dist(r.Start);
+		if (Llength < Slenght || !Sintersection.find)
+		{
+			if (Llength<Tlenght || abs(Llength-Tlenght)<0.0001)
+			{
+				return scene.light.GetLight()*importance;
+			}
+		}
+	}
+
 	if (Slenght >0.001 && Slenght < Tlenght && Sintersection.find) {
 		Rout = Sintersection.sphere.Bounce(r, Sintersection.point);
 		return  CastRay(Rout, scene, depth, importance);
@@ -99,9 +112,10 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 	}
 	else {
 		//If lightsource give full colorvalue
-		if (intersections.triangle.surface == LIGHtSOURCE) {
-			return  intersections.triangle.Color*importance;
-		}else if (intersections.triangle.surface == LAMBERTIAN)
+		//if (intersections.triangle.surface == LIGHtSOURCE) {
+			//return  intersections.triangle.Color*importance;
+		//}
+		if (intersections.triangle.surface == LAMBERTIAN)
 		{
 			//Get directlight contribution
 			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);			
@@ -114,13 +128,13 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 			importance = importance / hemispherePDF * intersections.triangle.Color*BRDF;
 			double p = std::max(std::max(importance.r, importance.b), importance.g);
 
-			if ((double)rand() / RAND_MAX > p || depth > 5) {
+			if ((double)rand() / RAND_MAX > p || depth > 0) {
 				return importance * 0.0;
 			}
 			importance = importance * 1.0 / p;
 
 			depth++;
-			ColorDbl indirectlight = CastRay(Rout, scene, depth, importance);
+			ColorDbl indirectlight;//t = CastRay(Rout, scene, depth, importance);
 			return importance * (directlight + indirectlight);
 
 

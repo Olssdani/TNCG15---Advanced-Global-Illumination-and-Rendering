@@ -5,14 +5,16 @@
 class Light_Circular
 {
 public:
-	Light_Circular(const Vertex &_center, const double &_radius, const double _watt, Vertex _Normal);
+	Light_Circular();
+
+	Light_Circular(const Vertex &_center, const double &_radius, const double _watt, Direction _Normal);
 
 	//Get the light area
 	const ColorDbl& GetLight()const;
 	//Get the light area
 	const double& GetLightArea()const;
 
-	const Vertex& GetNormal()const;
+	const Direction& GetNormal()const;
 	//Finds the point the ray intercepts the circular light if any.
 	bool rayIntersection(const Ray &r, Vertex &point)const;
 
@@ -24,6 +26,6 @@ private:
 	double L0;
 	double Area;
 	ColorDbl EmittingLight;
-	Vertex Normal;
+	Direction Normal;
 };
 
