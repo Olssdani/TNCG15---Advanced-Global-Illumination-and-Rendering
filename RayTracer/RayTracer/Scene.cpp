@@ -202,7 +202,6 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 		//double angle = TowardsLight.Scalar(Normal) / (TowardsLight.Length()*Normal.Length());
 		//clr += light.GetTringle().Color*light.GetTringle().GetArea()*Geometric*angle*0.8/M_PI;
 
-
 	}
 
 

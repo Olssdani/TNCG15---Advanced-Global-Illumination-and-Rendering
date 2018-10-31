@@ -4,6 +4,7 @@
 
 
 Triangle::Triangle()
+
 {
 	p1 = Vertex();
 	p2 = Vertex();
@@ -89,6 +90,11 @@ Direction Triangle::normalCalc()
 ColorDbl Triangle::LambertianReflection(double angle)
 {
 	return (Color * rcoef / M_PI) * angle;
+}
+
+double Triangle::BRDF()
+{
+	return rcoef / M_PI;
 }
 
 std::ostream& operator<<(std::ostream& os, const Triangle& t)

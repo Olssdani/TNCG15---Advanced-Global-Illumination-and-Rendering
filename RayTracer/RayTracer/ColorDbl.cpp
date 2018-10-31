@@ -9,6 +9,12 @@ ColorDbl::ColorDbl()
 	b = 0;
 }
 
+ColorDbl::ColorDbl(double a)
+{
+	r = a;
+	g = a;
+	b = a;
+}
 ColorDbl::ColorDbl(double _r, double _g, double _b)
 {
 	r = _r;

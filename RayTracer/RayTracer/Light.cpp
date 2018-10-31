@@ -8,7 +8,7 @@ Light::Light()
 	vertex[1] = Vertex(0, 6, 5, 1);
 	vertex[2] = Vertex(5, 0, 5, 1);
 
-	triangle = Triangle(vertex[0], vertex[1], vertex[2], ColorDbl(0., 0.0, 0.0));
+	triangle = Triangle(vertex[0], vertex[1], vertex[2], ColorDbl(0.0, 0.0, 0.0));
 	
 }
 

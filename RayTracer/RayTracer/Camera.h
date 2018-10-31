@@ -1,6 +1,7 @@
 #pragma once
 #include "Pixel.h"
 #include <new>
+#include <algorithm>
 #include "Scene.h"
 #include <algorithm>
 

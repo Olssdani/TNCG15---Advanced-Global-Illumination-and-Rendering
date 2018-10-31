@@ -1,5 +1,7 @@
-﻿  Scene.cpp
+﻿  Camera.cpp
 c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(113): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.cpp(144): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(207): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(208): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(209): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(174): warning C4715: 'Camera::CastRay': not all control paths return a value
   RayTracer.vcxproj -> C:\Users\nille\Desktop\TNGC15\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe

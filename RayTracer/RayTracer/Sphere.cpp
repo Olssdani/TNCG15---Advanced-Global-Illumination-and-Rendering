@@ -37,7 +37,7 @@ ColorDbl Sphere::GetColor()
 	return color;
 }
 
-bool Sphere::RayIntersect(const Ray &ray, Vertex &p)
+bool Sphere::RayIntersect(const Ray &ray, Vertex &p)const
 {
 	//start point
 	Vertex o = ray.Start;
@@ -73,7 +73,7 @@ bool Sphere::RayIntersect(const Ray &ray, Vertex &p)
 	}
 }
 
-Direction Sphere::getNormal(const Vertex &p)
+Direction Sphere::getNormal(const Vertex &p)const
 {
 	Direction temp = Direction(p.x - center.x, p.y - center.y, p.z - center.z);
 	temp.normalize();

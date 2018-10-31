@@ -7,6 +7,7 @@
 #include "Light.h";
 #include "Direction.h"
 #include "Sphere.h"
+#include <algorithm>
 
 struct TriangelIntersection
 {

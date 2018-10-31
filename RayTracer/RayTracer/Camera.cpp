@@ -69,15 +69,13 @@ void Camera::render(Scene &scene)
 			clr = clr / 4.0;*/
 			
 			temp = Ray(Eyes[Eye], middle);
+
 			clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
-			if (scene.light.GetTringle().Color.r > 320) {
-				std::cout << i << j;
-			}
+
 			
 			PixelArray[i][j].UpdateColor(clr);
 			
 		}
-		std::cout << scene.light.GetTringle().Color << std::endl;
 		std::cout << (double)i/height*100.0 << "%" << std::endl;
 	}
 }
@@ -103,11 +101,10 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 		//If lightsource give full colorvalue
 		if (intersections.triangle.surface == LIGHtSOURCE) {
 			return  intersections.triangle.Color*importance;
-		}
-		else if (intersections.triangle.surface == LAMBERTIAN)
+		}else if (intersections.triangle.surface == LAMBERTIAN)
 		{
 			//Get directlight contribution
-			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
+			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);			
 			//Get a random direction from hemisphere
 			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
 			//
@@ -133,6 +130,21 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 			//Get direct light contribution
 			double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
 
+=======
+			importance = importance* 1.0 / p;
+			
+			depth++;
+			ColorDbl indirectlight = CastRay(Rout, scene, depth, importance);
+			return importance * (directlight + indirectlight);
+			
+			
+			
+			
+			/*
+			//Get direct light contribution
+			double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
+			
+>>>>>>> 4f38bcc591000786bb1c4aace5ee879ccb1ae098
 			ColorDbl lambertianClr = intersections.triangle.LambertianReflection(cos_angle);
 			clr =  directlight;
 
@@ -145,9 +157,15 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 
 			if (depth <3 )
 			{
+<<<<<<< HEAD
 			depth++;
 			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
 			return clr = lambertianClr * (clr + CastRay(Rout, scene, depth, importance)* importance);
+=======
+				depth++;
+				Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
+				return clr = lambertianClr * (clr + CastRay(Rout, scene, depth, importance)* importance);
+>>>>>>> 4f38bcc591000786bb1c4aace5ee879ccb1ae098
 			}
 
 			return lambertianClr * clr;*/
