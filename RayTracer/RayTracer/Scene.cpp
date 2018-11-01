@@ -159,7 +159,7 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 	ColorDbl clr;
 	double sum = 0;
 	//Loop for all shadowrays
-	for (int i = 0; i <4; i++)
+	for (int i = 0; i <1; i++)
 	{
 		//Get direction towards arbitary point on light triangle
 		Vertex Randomp = light.RandomPointOnLight();
@@ -206,7 +206,7 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 
 
 	//Add area to light and divide by nr of shadowrays
-	clr = (light.GetLight()*light.GetLightArea())*(sum / 4.0);
+	clr = (light.GetLight()*light.GetLightArea())*(sum / 1.0);
 	/*if (clr.r > light.GetTringle().Color.r || clr.b > light.GetTringle().Color.b || clr.g > light.GetTringle().Color.g)
 	{
 		std::cout << "Hllohj";

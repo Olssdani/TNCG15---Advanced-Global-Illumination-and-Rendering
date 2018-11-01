@@ -58,7 +58,30 @@ bool Light_Circular::rayIntersection(const Ray &r, Vertex &point)const
 	if (r.dir.z < 0.0001) {
 		return false;
 	}
-	double t = (center.z - r.Start.z) / r.dir.z;
+	/*
+	Vertex ray;
+	for (int t = 0; t < 100; t++)
+	{
+		double temp = (double)t / 100;
+		
+		ray.x = point.x + t * r.dir.x;
+		ray.y = point.y + t * r.dir.y;
+		ray.z = point.z + t * r.dir.z;
+		if (ray.z - 5 < 0.001)
+		{
+			std::cout << temp  << "  temp "  << std::endl;
+			if (pow(radius, 2.0) > pow(abs(ray.x -center.x), 2.0) + pow(abs(ray.y - center.y), 2.0))
+			{
+				//point = Vertex(ray.x, ray.y, center.z, 1.0);
+				return true;
+			}
+		}
+	}
+	return false;*/
+	Ray temp = r;
+	temp.dir.normalize();
+	double t = (center.z - r.Start.z) / temp.dir.z; //T blir alltid 1
+	std::cout << t << std::endl;
 	// Se if the point is less than 2.0 length from center
 	double x = r.Start.x + t * r.dir.x;
 	double y = r.Start.y + t * r.dir.y;

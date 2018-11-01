@@ -56,20 +56,20 @@ void Camera::render(Scene &scene)
 			
 			Vertex middle = Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0.0);
 			//std::cout<< "Middle" << middle << std::endl;
-			
+			/*
 			for (int k = -1; k <= 1; k = k + 2) {
 				for (int m = -1; m <= 1; m = m + 2) {
 
 					Vertex p = Vertex(0.0, middle.y + (0.00125*m / 2.0), middle.z + (0.00125*k / 2.0), 0.0);
 					//std::cout << "other" << p << std::endl;
 					temp = Ray(Eyes[Eye], p);
-					clr = CastRay(temp, scene,0, ColorDbl(1.0, 1.0, 1.0));
+					clr += CastRay(temp, scene,0, ColorDbl(1.0, 1.0, 1.0));
 				}
 			}
-			clr = clr / 4.0;
+			clr = clr / 4.0;*/
 			
-			//temp = Ray(Eyes[Eye], middle);
-			//clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
+			temp = Ray(Eyes[Eye], middle);
+			clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
 
 			
 			PixelArray[i][j].UpdateColor(clr);
