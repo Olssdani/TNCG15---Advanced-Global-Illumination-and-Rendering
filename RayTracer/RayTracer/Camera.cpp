@@ -66,8 +66,8 @@ void Camera::render(Scene &scene)
 					clr += CastRay(temp, scene,0, ColorDbl(1.0, 1.0, 1.0));
 				}
 			}
-			clr = clr / 4.0;*/
-			
+			clr = clr / 4.0;
+			*/			
 			temp = Ray(Eyes[Eye], middle);
 			clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
 
@@ -92,11 +92,12 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 	double Tlenght = intersections.point.dist(r.Start);
 
 	Vertex LightPoint;
-
+	//std::cout << scene.light.LightInterception(r, LightPoint) << std::endl;
 	if (scene.light.LightInterception(r, LightPoint))
 	{
 		double Llenght = LightPoint.dist(r.Start);
-		if (Llenght < Slenght || !Sintersection.find)
+		//std::cout << Llenght << std::endl;
+		if (Llenght < Slenght  || !Sintersection.find || Sintersection.find && Slenght < 0.001)
 		{
 			if (Llenght < Tlenght || abs(Llenght - Tlenght) < 0.0001)
 			{
@@ -112,31 +113,31 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 		return  CastRay(Rout, scene, depth, importance);
 
 	}
-	else {
+	else if (intersections.triangle.surface == LAMBERTIAN)
+	{
+		//Get directlight contribution
+		ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);			
+		//Get a random direction from hemisphere
+		Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
+		//
+		//double hemispherePDF = 1.0 / (2.0*M_PI);
+		double BRDF = intersections.triangle.BRDF();
 
-		if (intersections.triangle.surface == LAMBERTIAN)
-		{
-			//Get directlight contribution
-			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);			
-			//Get a random direction from hemisphere
-			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
-			//
-			double hemispherePDF = 1.0 / (2.0*M_PI);
-			double BRDF = intersections.triangle.BRDF();
-
-			importance = importance / hemispherePDF * intersections.triangle.Color*BRDF;
-			double p = std::max(std::max(importance.r, importance.b), importance.g);
-
-			if ((double)rand() / RAND_MAX > p || depth > 0) {
-				return importance * 0.0;
-			}
-			importance = importance * 1.0 / p;
-
-			depth++;
-			ColorDbl indirectlight;//t = CastRay(Rout, scene, depth, importance);
-			return importance * (directlight + indirectlight);
-
+		//importance = importance / hemispherePDF * intersections.triangle.Color*BRDF;
+		double p = std::max(std::max(importance.r*BRDF, importance.b*BRDF), importance.g*BRDF);
+		ColorDbl new_importance = importance * BRDF * M_PI;
+		//std::cout << "p  " << p << std::endl;
+		if ((double)rand() / RAND_MAX > 1-p || depth > 1) {
+			return importance * intersections.triangle.Color;
 		}
+			
+
+		depth++;
+		ColorDbl indirectlight = CastRay(Rout, scene, depth, new_importance);
+		//ColorDbl lpus = directlight + indirectlight;
+		//std::cout << indirectlight << "  i   "  << " Importance" << importance << std::endl;
+		return importance*intersections.triangle.Color * (directlight + indirectlight);
+
 	}
 }
 

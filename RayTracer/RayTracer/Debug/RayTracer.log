@@ -1,16 +1,7 @@
 ﻿  Camera.cpp
 c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\camera.cpp(174): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
 c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\camera.cpp(175): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
 c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\camera.cpp(176): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-  Light.cpp
-  RayTracer.cpp
-c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\raytracer.cpp(21): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Scene.cpp
-c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\scene.cpp(113): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\scene.cpp(144): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\camera.cpp(141): warning C4715: 'Camera::CastRay': not all control paths return a value
+c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\camera.cpp(177): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\erik\documents\skola\tncg15 advanced global illumination and rendering\old\raytracer\raytracer\camera.cpp(142): warning C4715: 'Camera::CastRay': not all control paths return a value
   RayTracer.vcxproj -> C:\Users\Erik\Documents\Skola\TNCG15 Advanced global illumination and rendering\old\RayTracer\Debug\RayTracer.exe

@@ -189,14 +189,13 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 			//Get a direction from point to light
 			Direction TowardsLight = r.End - r.Start;
 			double vectorlengthSQ = std::max(1.0, TowardsLight.Scalar(TowardsLight));
-
 			TowardsLight.normalize();
 			// get the geometric scalar
 
 			double alpha = std::max(0.0, TowardsLight.Scalar(Normal));
 			double beta = std::max(0.0, (TowardsLight*-1).Scalar(L.normal));
 
-
+			//std::cout << "  alpha  " << alpha << "  beta  " << beta << "  vector  " << vectorlengthSQ << "  lightvector  " << lightvec << std::endl;
 			double Geometric = alpha * beta / vectorlengthSQ;
 
 			sum += Geometric;
@@ -205,9 +204,9 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 			//clr += light.GetTringle().Color*light.GetTringle().GetArea()*Geometric*angle*0.8/M_PI;
 
 		}
-		clr += (light.GetEmission()*L.GetArea())*sum ;
+		clr += (light.GetEmission()*L.GetArea())*sum/1.0;
 	}
-	clr = clr / (2.0 * 1.0);
+	clr = clr / light.triangle.size();
 
 	return clr;
 }
