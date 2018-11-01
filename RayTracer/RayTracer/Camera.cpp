@@ -93,17 +93,19 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 
 	Vertex LightPoint;
 
-	if (scene.light.rayIntersection(r, LightPoint))
+	if (scene.light.LightInterception(r, LightPoint))
 	{
-		double Llength = LightPoint.dist(r.Start);
-		if (Llength < Slenght || !Sintersection.find)
+		double Llenght = LightPoint.dist(r.Start);
+		if (Llenght < Slenght || !Sintersection.find)
 		{
-			if (Llength<Tlenght || abs(Llength-Tlenght)<0.0001)
+			if (Llenght < Tlenght || abs(Llenght - Tlenght) < 0.0001)
 			{
-				return scene.light.GetLight()*importance;
+				return scene.light.GetEmission()*importance;
 			}
 		}
+		
 	}
+
 
 	if (Slenght >0.001 && Slenght < Tlenght && Sintersection.find) {
 		Rout = Sintersection.sphere.Bounce(r, Sintersection.point);
@@ -111,10 +113,7 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 
 	}
 	else {
-		//If lightsource give full colorvalue
-		//if (intersections.triangle.surface == LIGHtSOURCE) {
-			//return  intersections.triangle.Color*importance;
-		//}
+
 		if (intersections.triangle.surface == LAMBERTIAN)
 		{
 			//Get directlight contribution
@@ -137,52 +136,6 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 			ColorDbl indirectlight;//t = CastRay(Rout, scene, depth, importance);
 			return importance * (directlight + indirectlight);
 
-
-
-
-			/*
-			//Get direct light contribution
-			double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
-
-=======
-			importance = importance* 1.0 / p;
-			
-			depth++;
-			ColorDbl indirectlight = CastRay(Rout, scene, depth, importance);
-			return importance * (directlight + indirectlight);
-			
-			
-			
-			
-			/*
-			//Get direct light contribution
-			double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
-			
->>>>>>> 4f38bcc591000786bb1c4aace5ee879ccb1ae098
-			ColorDbl lambertianClr = intersections.triangle.LambertianReflection(cos_angle);
-			clr =  directlight;
-
-			double randomNr = (double)rand() / RAND_MAX * (intersections.triangle.rcoef / M_PI);
-
-			double rrTop = glm::max(glm::max(lambertianClr.r, lambertianClr.g), lambertianClr.b);
-			//std::cout << lambertianClr << "    " << rrTop << "   rrtop   " << randomNr << std::endl;
-			//std::cout << depth << std::endl;
-
-
-			if (depth <3 )
-			{
-<<<<<<< HEAD
-			depth++;
-			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
-			return clr = lambertianClr * (clr + CastRay(Rout, scene, depth, importance)* importance);
-=======
-				depth++;
-				Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
-				return clr = lambertianClr * (clr + CastRay(Rout, scene, depth, importance)* importance);
->>>>>>> 4f38bcc591000786bb1c4aace5ee879ccb1ae098
-			}
-
-			return lambertianClr * clr;*/
 		}
 	}
 }
