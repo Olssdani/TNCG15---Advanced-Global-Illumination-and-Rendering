@@ -46,17 +46,34 @@ void Camera::render(Scene &scene)
 {
 	//Variables
 	Ray temp;
-	//Loop over all pixels
-	//std::cout << scene.NR_SHADOW_RAYS << std::endl;
+	const int NrOfSubPixels = 5;
+	const double PixelWidth = RealWidth /(double)width;
+	const double SubPixelWidth = PixelWidth / (double)NrOfSubPixels;
+
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
 			ColorDbl clr;
+			// get the start position for the first suboixel
+			double ystart = ((double)(-j)) * PixelWidth + 1.0 - SubPixelWidth/2.0;
+			double zstart = ((double)(-i)) * PixelWidth + 1.0 - SubPixelWidth/2.0;
 			
-			Vertex middle = Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0.0);
-			//std::cout<< "Middle" << middle << std::endl;
-			/*
+			for (int k = 0; k < NrOfSubPixels; ++k) {
+				for (int m = 0; m < NrOfSubPixels; ++m) {
+
+					//Add pixel length
+					Vertex SubPixelRay = Vertex(0.0,ystart -((double)m)*SubPixelWidth ,zstart - ((double)k)*SubPixelWidth, 0.0);
+					//std::cout << SubPixelRay << std::endl;
+					temp = Ray(Eyes[Eye], SubPixelRay);
+					
+					clr += CastRay(temp, scene, 0, ColorDbl(1.0, 1.0, 1.0));
+				}
+			}
+			clr = clr / (double)pow(NrOfSubPixels, 2);
+			
+
+			/*Vertex middle = Vertex(0.0, (double)(-j * 0.0025 + 0.99875), (double)(-i * 0.0025 + 0.99875), 0.0);
 			for (int k = -1; k <= 1; k = k + 2) {
 				for (int m = -1; m <= 1; m = m + 2) {
 
@@ -68,8 +85,8 @@ void Camera::render(Scene &scene)
 			}
 			clr = clr / 4.0;*/
 			
-			temp = Ray(Eyes[Eye], middle);
-			clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
+			//temp = Ray(Eyes[Eye], middle);
+			//clr = CastRay(temp, scene, 0, ColorDbl(1.0,1.0,1.0));
 
 			
 			PixelArray[i][j].UpdateColor(clr);
@@ -93,17 +110,20 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 
 	Vertex LightPoint;
 
-	if (scene.light.rayIntersection(r, LightPoint))
+	if (scene.light.LightInterception(r, LightPoint))
 	{
-		double Llength = LightPoint.dist(r.Start);
-		if (Llength < Slenght || !Sintersection.find)
+		double Llenght = LightPoint.dist(r.Start);
+		//std::cout << Llenght << std::endl;
+		if (Llenght < Slenght || !Sintersection.find || Sintersection.find && Slenght < 0.001)
 		{
-			if (Llength<Tlenght || abs(Llength-Tlenght)<0.0001)
+			if (Llenght < Tlenght || abs(Llenght - Tlenght) < 0.0001)
 			{
-				return scene.light.GetLight()*importance;
+				return scene.light.GetEmission()*importance;
 			}
 		}
+
 	}
+
 
 	if (Slenght >0.001 && Slenght < Tlenght && Sintersection.find) {
 		Rout = Sintersection.sphere.Bounce(r, Sintersection.point);
@@ -111,78 +131,32 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 
 	}
 	else {
-		//If lightsource give full colorvalue
-		//if (intersections.triangle.surface == LIGHtSOURCE) {
-			//return  intersections.triangle.Color*importance;
-		//}
+
 		if (intersections.triangle.surface == LAMBERTIAN)
 		{
 			//Get directlight contribution
-			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);			
+			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);	
+			/*if (directlight.b > 1.0) {
+				std::cout << directlight <<std::endl;
+			}*/
 			//Get a random direction from hemisphere
 			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
 			//
 			double hemispherePDF = 1.0 / (2.0*M_PI);
 			double BRDF = intersections.triangle.BRDF();
+			ColorDbl Color = intersections.triangle.Color;
+			
 
-			importance = importance / hemispherePDF * intersections.triangle.Color*BRDF;
-			double p = std::max(std::max(importance.r, importance.b), importance.g);
-
-			if ((double)rand() / RAND_MAX > p || depth > 0) {
-				return importance * 0.0;
+			double p = std::max(std::max(Color.r*BRDF, Color.b*BRDF), Color.g*BRDF);
+			ColorDbl new_importance = importance * 0.8;
+			double random = (double)rand() / RAND_MAX;
+			if (random> 1-p || depth > 10) {
+				return importance*Color;
 			}
-			importance = importance * 1.0 / p;
-
 			depth++;
-			ColorDbl indirectlight;//t = CastRay(Rout, scene, depth, importance);
-			return importance * (directlight + indirectlight);
+			ColorDbl indirectlight = CastRay(Rout, scene, depth, new_importance);
+			return	importance *Color* (directlight + indirectlight);
 
-
-
-
-			/*
-			//Get direct light contribution
-			double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
-
-=======
-			importance = importance* 1.0 / p;
-			
-			depth++;
-			ColorDbl indirectlight = CastRay(Rout, scene, depth, importance);
-			return importance * (directlight + indirectlight);
-			
-			
-			
-			
-			/*
-			//Get direct light contribution
-			double cos_angle = (r.dir*-1).Scalar(intersections.triangle.normal) / (r.dir.Length()*intersections.triangle.normal.Length());
-			
->>>>>>> 4f38bcc591000786bb1c4aace5ee879ccb1ae098
-			ColorDbl lambertianClr = intersections.triangle.LambertianReflection(cos_angle);
-			clr =  directlight;
-
-			double randomNr = (double)rand() / RAND_MAX * (intersections.triangle.rcoef / M_PI);
-
-			double rrTop = glm::max(glm::max(lambertianClr.r, lambertianClr.g), lambertianClr.b);
-			//std::cout << lambertianClr << "    " << rrTop << "   rrtop   " << randomNr << std::endl;
-			//std::cout << depth << std::endl;
-
-
-			if (depth <3 )
-			{
-<<<<<<< HEAD
-			depth++;
-			Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
-			return clr = lambertianClr * (clr + CastRay(Rout, scene, depth, importance)* importance);
-=======
-				depth++;
-				Rout = r.SampleLambertian(intersections.triangle.normal, intersections.point);
-				return clr = lambertianClr * (clr + CastRay(Rout, scene, depth, importance)* importance);
->>>>>>> 4f38bcc591000786bb1c4aace5ee879ccb1ae098
-			}
-
-			return lambertianClr * clr;*/
 		}
 	}
 }
@@ -218,9 +192,9 @@ void Camera::createImage()
 	{
 		for (int j = 0; j < width; j++)
 		{	
-			picture(j, i, 0) = sqrt(PixelArray[i][j].colorDbl.r)*255.99 / sqrt(max);
-			picture(j, i, 1) = sqrt(PixelArray[i][j].colorDbl.g)*255.99 / sqrt(max);
-			picture(j, i, 2) = sqrt(PixelArray[i][j].colorDbl.b)*255.99 / sqrt(max);
+			picture(j, i, 0) = pow(PixelArray[i][j].colorDbl.r,1.0/3.0)*255.99 / pow(max, 1.0/3.0);
+			picture(j, i, 1) = pow(PixelArray[i][j].colorDbl.g, 1.0 / 3.0)*255.99 / pow(max, 1.0 / 3.0);
+			picture(j, i, 2) = pow(PixelArray[i][j].colorDbl.b, 1.0 / 3.0)*255.99 / pow(max, 1.0 / 3.0);
 		}
 	}
 	//Show

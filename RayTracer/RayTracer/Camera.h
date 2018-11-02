@@ -23,6 +23,7 @@ public:
 private:
 	static const int height = 800;
 	static const int width = 800;
+	static const int RealWidth = 2.0;
 	
 	//Index for which eye that is used
 	int Eye;

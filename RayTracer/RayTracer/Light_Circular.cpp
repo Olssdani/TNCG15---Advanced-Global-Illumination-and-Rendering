@@ -81,7 +81,7 @@ bool Light_Circular::rayIntersection(const Ray &r, Vertex &point)const
 	Ray temp = r;
 	temp.dir.normalize();
 	double t = (center.z - r.Start.z) / temp.dir.z; //T blir alltid 1
-	std::cout << t << std::endl;
+	//std::cout << t << std::endl;
 	// Se if the point is less than 2.0 length from center
 	double x = r.Start.x + t * r.dir.x;
 	double y = r.Start.y + t * r.dir.y;

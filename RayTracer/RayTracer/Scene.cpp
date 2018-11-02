@@ -81,7 +81,7 @@ void Scene::AddTetrahedra(Tetrahedron &t)
 	}
 }
 
-void Scene::AddLightSource(Light_Circular &L)
+void Scene::AddLightSource(Light &L)
 {
 	light = L;
 
@@ -159,58 +159,50 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 	ColorDbl clr;
 	double sum = 0;
 	//Loop for all shadowrays
-	for (int i = 0; i <1; i++)
+	for (auto &L : light.triangle)
 	{
-		//Get direction towards arbitary point on light triangle
-		Vertex Randomp = light.RandomPointOnLight();
-		Ray r(point, Randomp);
-		double SinterLength = 0;
-		//Get the closest intersection
-		TriangelIntersection inter = DetectTriangel(r);
-		SphereIntersection Sinter = DetectSphere(r);
-		double SLenght = 0;
-		if (Sinter.find) {
-			SLenght = point.dist(Sinter.point);
+		for (int i = 0; i < 32; i++)
+		{
+			//Get direction towards arbitary point on light triangle
+			Vertex Randomp = L.GetRandomPoint();
+			Ray r(point, Randomp);
+			double SinterLength = 0;
+			//Get the closest intersection
+			TriangelIntersection inter = DetectTriangel(r);
+			SphereIntersection Sinter = DetectSphere(r);
+			double SLenght = 0;
+			if (Sinter.find) {
+				SLenght = point.dist(Sinter.point);
+			}
+
+			//Get the length from point to light/intersection
+			double LightLenght = point.dist(Randomp);
+			double InterLenght = point.dist(inter.point);
+
+			//If interseption length is larger than lightlength just skip rest
+			if (abs(LightLenght - InterLenght) > 0.0001 || (Sinter.find && SLenght > 0.001)) {
+				continue;
+			}
+			//Normalize normal "unnecessary?"
+			Normal.normalize();
+
+			//Get a direction from point to light
+			Direction TowardsLight = r.End - r.Start;
+			double vectorlengthSQ = std::max(1.0, TowardsLight.Scalar(TowardsLight));
+
+			TowardsLight.normalize();
+			// get the geometric scalar
+
+			double alpha = std::max(0.0, TowardsLight.Scalar(Normal));
+			double beta = std::max(0.0, (TowardsLight*-1).Scalar(L.normal));
+
+
+			double Geometric = alpha * beta / vectorlengthSQ;
+
+			sum += Geometric;
 		}
-
-		//Get the length from point to light/intersection
-		double LightLenght = point.dist(Randomp);
-		double InterLenght = point.dist(inter.point);
-
-		//If interseption length is larger than lightlength just skip rest
-		if (abs(LightLenght - InterLenght) > 0.0001 || (Sinter.find && SLenght >0.001)) {
-			continue;
-		}
-		//Normalize normal "unnecessary?"
-		Normal.normalize();
-
-		//Get a direction from point to light
-		Direction TowardsLight = r.End - r.Start;
-		double vectorlengthSQ = std::max(1.0, TowardsLight.Scalar(TowardsLight));
-
-		TowardsLight.normalize();
-		// get the geometric scalar
-
-		double alpha = std::max(0.0, TowardsLight.Scalar(Normal));
-		double beta = std::max(0.0, (TowardsLight*-1).Scalar(light.GetNormal()));
-
-
-		double Geometric = alpha * beta / vectorlengthSQ;
-
-		sum += Geometric;
-		//Add light and the geometric 
-		//double angle = TowardsLight.Scalar(Normal) / (TowardsLight.Length()*Normal.Length());
-		//clr += light.GetTringle().Color*light.GetTringle().GetArea()*Geometric*angle*0.8/M_PI;
-
+		clr += (light.GetEmission()*L.GetArea())*sum/32.0 ;
 	}
-
-
-	//Add area to light and divide by nr of shadowrays
-	clr = (light.GetLight()*light.GetLightArea())*(sum / 1.0);
-	/*if (clr.r > light.GetTringle().Color.r || clr.b > light.GetTringle().Color.b || clr.g > light.GetTringle().Color.g)
-	{
-		std::cout << "Hllohj";
-	}*/
-	//clr = clr  /4.0;
+	clr = clr / light.triangle.size();
 	return clr;
 }
