@@ -189,14 +189,13 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 			//Get a direction from point to light
 			Direction TowardsLight = r.End - r.Start;
 			double vectorlengthSQ = std::max(1.0, TowardsLight.Scalar(TowardsLight));
-
 			TowardsLight.normalize();
 			// get the geometric scalar
 
 			double alpha = std::max(0.0, TowardsLight.Scalar(Normal));
 			double beta = std::max(0.0, (TowardsLight*-1).Scalar(L.normal));
 
-
+			//std::cout << "  alpha  " << alpha << "  beta  " << beta << "  vector  " << vectorlengthSQ << "  lightvector  " << lightvec << std::endl;
 			double Geometric = alpha * beta / vectorlengthSQ;
 
 			sum += Geometric;

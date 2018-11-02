@@ -83,6 +83,7 @@ void Camera::render(Scene &scene)
 					clr += CastRay(temp, scene,0, ColorDbl(1.0, 1.0, 1.0));
 				}
 			}
+<<<<<<< HEAD
 			clr = clr / 4.0;*/
 			
 			//temp = Ray(Eyes[Eye], middle);
@@ -109,7 +110,7 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 	double Tlenght = intersections.point.dist(r.Start);
 
 	Vertex LightPoint;
-
+	//std::cout << scene.light.LightInterception(r, LightPoint) << std::endl;
 	if (scene.light.LightInterception(r, LightPoint))
 	{
 		double Llenght = LightPoint.dist(r.Start);
@@ -125,7 +126,7 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 	}
 
 
-	if (Slenght >0.001 && Slenght < Tlenght && Sintersection.find) {
+	if (Slenght > 0.001 && Slenght < Tlenght && Sintersection.find) {
 		Rout = Sintersection.sphere.Bounce(r, Sintersection.point);
 		return  CastRay(Rout, scene, depth, importance);
 
@@ -135,7 +136,7 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 		if (intersections.triangle.surface == LAMBERTIAN)
 		{
 			//Get directlight contribution
-			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);	
+			ColorDbl directlight = scene.GetLightContribution(intersections.point, intersections.triangle.normal);
 			/*if (directlight.b > 1.0) {
 				std::cout << directlight <<std::endl;
 			}*/
@@ -145,17 +146,17 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 			double hemispherePDF = 1.0 / (2.0*M_PI);
 			double BRDF = intersections.triangle.BRDF();
 			ColorDbl Color = intersections.triangle.Color;
-			
+
 
 			double p = std::max(std::max(Color.r*BRDF, Color.b*BRDF), Color.g*BRDF);
 			ColorDbl new_importance = importance * 0.8;
 			double random = (double)rand() / RAND_MAX;
-			if (random> 1-p || depth > 10) {
-				return importance*Color;
+			if (random > 1 - p || depth > 10) {
+				return importance * Color;
 			}
 			depth++;
 			ColorDbl indirectlight = CastRay(Rout, scene, depth, new_importance);
-			return	importance *Color* (directlight + indirectlight);
+			return	importance * Color* (directlight + indirectlight);
 
 		}
 	}
