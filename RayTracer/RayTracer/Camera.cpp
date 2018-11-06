@@ -46,7 +46,7 @@ void Camera::render(Scene &scene)
 {
 	//Variables
 	Ray temp;
-	const int NrOfSubPixels = 5;
+	const int NrOfSubPixels = 2;
 	const double PixelWidth = RealWidth /(double)width;
 	const double SubPixelWidth = PixelWidth / (double)NrOfSubPixels;
 
@@ -151,7 +151,7 @@ ColorDbl Camera::CastRay(Ray &r, Scene &scene, int depth, ColorDbl importance)
 			double p = std::max(std::max(Color.r*BRDF, Color.b*BRDF), Color.g*BRDF);
 			ColorDbl new_importance = importance * 0.8;
 			double random = (double)rand() / RAND_MAX;
-			if (random > 1 - p || depth > 10) {
+			if (random > 1 - p || depth > 1) {
 				return importance * Color;
 			}
 			depth++;
@@ -193,9 +193,9 @@ void Camera::createImage()
 	{
 		for (int j = 0; j < width; j++)
 		{	
-			picture(j, i, 0) = pow(PixelArray[i][j].colorDbl.r,1.0/3.0)*255.99 / pow(max, 1.0/3.0);
-			picture(j, i, 1) = pow(PixelArray[i][j].colorDbl.g, 1.0 / 3.0)*255.99 / pow(max, 1.0 / 3.0);
-			picture(j, i, 2) = pow(PixelArray[i][j].colorDbl.b, 1.0 / 3.0)*255.99 / pow(max, 1.0 / 3.0);
+			picture(j, i, 0) = sqrt(PixelArray[i][j].colorDbl.r)*255.99 / sqrt(max);
+			picture(j, i, 1) = sqrt(PixelArray[i][j].colorDbl.g)*255.99 / sqrt(max);
+			picture(j, i, 2) = sqrt(PixelArray[i][j].colorDbl.b)*255.99 / sqrt(max);
 		}
 	}
 	//Show

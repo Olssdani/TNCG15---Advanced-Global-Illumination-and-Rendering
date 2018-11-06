@@ -1,9 +1,8 @@
 ﻿  Camera.cpp
-c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.h(26): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
-c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(196): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(197): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(198): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-c:\users\nille\desktop\tngc15\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(163): warning C4715: 'Camera::CastRay': not all control paths return a value
-  LINK : C:\Users\nille\Desktop\TNGC15\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe not found or not built by the last incremental link; performing full link
-  RayTracer.vcxproj -> C:\Users\nille\Desktop\TNGC15\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe
+c:\users\erik\documents\skola\tncg15 global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\scene.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\erik\documents\skola\tncg15 global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.h(26): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+c:\users\erik\documents\skola\tncg15 global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(196): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\erik\documents\skola\tncg15 global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(197): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\erik\documents\skola\tncg15 global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(198): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
+c:\users\erik\documents\skola\tncg15 global illumination and rendering\tncg15---advanced-global-illumination-and-rendering\raytracer\raytracer\camera.cpp(163): warning C4715: 'Camera::CastRay': not all control paths return a value
+  RayTracer.vcxproj -> C:\Users\Erik\Documents\Skola\TNCG15 Global Illumination and rendering\TNCG15---Advanced-Global-Illumination-and-Rendering\RayTracer\Debug\RayTracer.exe

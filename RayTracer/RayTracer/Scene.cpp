@@ -161,7 +161,7 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 	//Loop for all shadowrays
 	for (auto &L : light.triangle)
 	{
-		for (int i = 0; i < 32; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			//Get direction towards arbitary point on light triangle
 			Vertex Randomp = L.GetRandomPoint();
@@ -200,7 +200,7 @@ ColorDbl Scene::GetLightContribution(Vertex &point, Direction &Normal)
 
 			sum += Geometric;
 		}
-		clr += (light.GetEmission()*L.GetArea())*sum/32.0 ;
+		clr += (light.GetEmission()*L.GetArea())*sum*10/3.0 ;
 	}
 	clr = clr / light.triangle.size();
 	return clr;
