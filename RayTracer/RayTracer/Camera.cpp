@@ -46,7 +46,7 @@ void Camera::render(Scene &scene)
 {
 	//Variables
 	Ray temp;
-	const int NrOfSubPixels = 2;
+	const int NrOfSubPixels = 32;
 	const double PixelWidth = RealWidth /(double)width;
 	const double SubPixelWidth = PixelWidth / (double)NrOfSubPixels;
 
